@@ -1,0 +1,31 @@
+<div bsModal #collaboratorModal="bs-modal" class="modal custom-fade" tabindex="-1"
+     role="dialog" aria-labelledby="collaboratorLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">{{collaborator?.firstName}} {{collaborator?.lastName}}</h4>
+                <small><strong>{{collaborator?.department}}</strong> {{collaborator?.fieldOfStudy}}</small>
+                <button type="button" class="close pull-right" (click)="collaboratorModal.hide()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <h6>Projects</h6>
+                    <!--TODO dodac liste projektów-->
+                    <p><i>List of projects is empty</i></p>
+                </div>
+                <div class="badge badge-pill badge-success" style="margin-bottom: 10px;">{{collaborator?.skills}}</div>
+                <div><small><i>{{collaborator?.email}}</i></small></div>
+            </div>
+            <div class="modal-footer">
+                <!--TODO zrobić component do wysyłania zaproszeń-->
+                <button class="btn btn-success btn-sm"><small>Invite to project</small></button>
+                <button type="button"
+                        class="btn btn-danger btn-sm"
+                        data-dismiss="modal"
+                        (click)="collaboratorModal.hide()"><small>Close</small></button>
+            </div>
+        </div>
+    </div>
+</div>

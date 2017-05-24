@@ -5,6 +5,8 @@ var testing_1 = require("@angular/http/testing");
 function fakeBackendFactory(backend, options, realBackend) {
     // array in local storage for registered users
     var users = JSON.parse(localStorage.getItem('users')) || [];
+    var projects = JSON.parse(localStorage.getItem('projects')) || [];
+    var invitations = JSON.parse(localStorage.getItem('invitations')) || [];
     // configure fake backend
     backend.connections.subscribe(function (connection) {
         // wrap in timeout to simulate server api call
@@ -107,6 +109,68 @@ function fakeBackendFactory(backend, options, realBackend) {
                     // return 401 not authorised if token is null or invalid
                     connection.mockRespond(new http_1.Response(new http_1.ResponseOptions({ status: 401 })));
                 }
+                return;
+            }
+            // get all projects
+            if (connection.request.url.match(/\/api\/\d+\/projects/) && connection.request.method === http_1.RequestMethod.Get) {
+                // check for fake auth token in header and return user if valid, this security is implemented server side in a real application
+                if (connection.request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
+                    connection.mockRespond(new http_1.Response(new http_1.ResponseOptions({ status: 200, body: projects })));
+                }
+                else {
+                    // return 401 not authorised if token is null or invalid
+                    connection.mockRespond(new http_1.Response(new http_1.ResponseOptions({ status: 401 })));
+                }
+                return;
+            }
+            // get all collaborators
+            if (connection.request.url.match(/\/api\/\d+\/collaborators/) && connection.request.method === http_1.RequestMethod.Get) {
+                if (connection.request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
+                    var project_id = parseInt(connection.request.url.match(/\d+/)[0]);
+                    // TODO na razie zwróć wszystkich userów ale gdy obsłużysz zaproszenia to zwróć kolaboratorów
+                    connection.mockRespond(new http_1.Response(new http_1.ResponseOptions({ status: 200, body: users })));
+                }
+                else {
+                    // return 401 not authorised if token is null or invalid
+                    connection.mockRespond(new http_1.Response(new http_1.ResponseOptions({ status: 401 })));
+                }
+                return;
+            }
+            debugger;
+            // join project
+            if (connection.request.url.match(/\/api\/\d+\/projects\/join/) && connection.request.method === http_1.RequestMethod.Post) {
+                debugger;
+                var user_id = parseInt(connection.request.url.match(/\d+/)[0]);
+                var project_id = JSON.parse(connection.request.getBody());
+                if (connection.request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
+                    // TODO na razie zwróć wszystkich userów ale gdy obsłużysz zaproszenia to zwróć kolaboratorów
+                    connection.mockRespond(new http_1.Response(new http_1.ResponseOptions({ status: 200 })));
+                }
+                else {
+                    // return 401 not authorised if token is null or invalid
+                    connection.mockRespond(new http_1.Response(new http_1.ResponseOptions({ status: 401 })));
+                }
+                return;
+            }
+            // create project
+            if (connection.request.url.match(/\/api\/\d+\/projects/) && connection.request.method === http_1.RequestMethod.Post) {
+                // get new user object from post body
+                var newProject_1 = JSON.parse(connection.request.getBody());
+                // validation
+                var duplicateProject = projects.filter(function (project) { return project.title === newProject_1.title; }).length;
+                if (duplicateProject) {
+                    debugger;
+                    return connection.mockError(new Error('Title of project: "' + newProject_1.title + '" is already taken'));
+                }
+                // save new project
+                newProject_1.id = projects.length + 1;
+                newProject_1.owner = parseInt(connection.request.url.match(/\d+/)[0]);
+                newProject_1.status = "Not started";
+                projects.push(newProject_1);
+                localStorage.setItem('projects', JSON.stringify(projects));
+                // respond 200 OK
+                debugger;
+                connection.mockRespond(new http_1.Response(new http_1.ResponseOptions({ status: 200 })));
                 return;
             }
             // pass through any requests not handled above

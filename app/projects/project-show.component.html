@@ -1,0 +1,48 @@
+<div *ngIf="project" class="container" style="border-bottom: darkgreen 2px solid;border-top: darkgreen 2px solid;">
+    <div style="padding: 12px 20px">
+        <div class="row" style="margin: 10px 0px;">
+            <div class="col">
+                <h4>{{project.title}}</h4>
+                <div style="font-style: italic; padding-bottom: 10px; font-size: 14px;">{{project.description}}</div>
+            </div>
+        </div>
+        <div class="row" style="margin: 10px 0px;">
+            <div class="col">
+                <div *ngIf="owner" style="padding-bottom: 10px; font-size: 14px;">
+                    <i class="fa fa-suitcase"></i>  Owner: <strong>{{owner.firstName}} {{owner.lastName}}</strong>
+                </div>
+                <div style="font-size: 12px;"><a href="project.github">{{project.github}}</a></div>
+            </div>
+            <div class="col">
+                <div class="badge badge-pill badge-default" style="margin-bottom: 10px;">{{project.technologies}}</div>
+                <div class="alert-success alert" style="padding: 6px 8px;">
+                    <small>Status: <strong>{{project.status}}</strong></small>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin: 10px 0px; width: 100%;">
+            <div *ngIf="collaborators" class="col">
+                <div><i class="fa fa-users"></i><strong>  Collaborators:</strong></div>
+                <a *ngFor="let collaborator of collaborators" (click)="showModal(collaborator)">
+                    <div style="padding-bottom: 5px; font-size: 13px;">
+                        {{collaborator.firstName}} {{collaborator.lastName}}
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="row" style="margin: 10px 0px; width: 100%;">
+            <div class="col">
+                <button class="btn btn-success pull-right btn-sm" style="margin-left: 5px;" (click)="joinProject()">
+                    Join Project
+                </button>
+                <button class="btn btn-danger pull-right btn-sm" style="margin-left: 5px;" (click)="close()">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<modal-collaborator
+    [collaborator]="modalCollaborator">
+</modal-collaborator>

@@ -1,15 +1,35 @@
-﻿<h1>Hi {{currentUser.firstName}}!</h1>
-<!-- TODO do napisania te dwa komponenty-->
-<!--<project-list></project-list>-->
-<!--<history></history>-->
-
-<!--<p>You're logged in with Angular 2!!</p>-->
-<!--<h3>All registered users:</h3>-->
-<!--<ul>-->
-    <!--<li *ngFor="let user of users">-->
-        <!--{{user.username}} ({{user.firstName}} {{user.lastName}} {{user.email}})-->
-        <!-- - <a (click)="deleteUser(user.id)">Delete</a>-->
-    <!--</li>-->
-<!--</ul>-->
-<p><a [routerLink]="['/login']">Logout</a></p>
-
+﻿<h3>Hi {{currentUser.firstName}}!</h3>
+<div>
+    <hr/>
+    <tabset #staticTabs [justified]="true">
+        <tab>
+            <template tabHeading>
+                <i class="fa fa-tasks"></i>  Projects
+            </template>
+            <!--TODO wszystkie projekty w których jestem ownerem-->
+            <!--TODO wszystkie projekty do których należę-->
+            Projects
+        </tab>
+        <tab>
+            <template tabHeading>
+                <i class="fa fa-plus-square"></i>  New Project
+            </template>
+            New Project
+        </tab>
+        <tab>
+            <template tabHeading>
+            <i class="fa fa-history"></i>  Projects History
+            </template>
+            <!--TODO Wszystkie projekty do których należałem lub byłem leadem ze statudem ENDED-->
+            Projects History
+        </tab>
+        <tab>
+            <template tabHeading>
+            <i class="fa fa-envelope-square"></i>  Invitations
+            </template>
+            <!--TODO wszytkie zaproszenia do projektów-->
+            <!--TODO Historia zaproszeń-->
+            Invitations
+        </tab>
+    </tabset>
+</div>

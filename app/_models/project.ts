@@ -5,5 +5,5 @@ export class Project {
     github: string;
     owner: number;
     technologies: string;
-    ended: string;
+    status: string;
 }

@@ -22,8 +22,15 @@ var index_4 = require("./_services/index");
 var index_5 = require("./home/index");
 var index_6 = require("./login/index");
 var index_7 = require("./register/index");
-var projects_component_1 = require("./projects/projects.component");
+var projects_index_component_1 = require("./projects/projects-index.component");
 var project_service_1 = require("./_services/project.service");
+var lazy_component_1 = require("./lazy/lazy.component");
+var projects_new_component_1 = require("./projects/projects-new.component");
+var project_header_component_1 = require("./projects/project-header.component");
+var collaborators_index_component_1 = require("./collaborators/collaborators-index.component");
+var project_show_component_1 = require("./projects/project-show.component");
+var ngx_bootstrap_1 = require("ngx-bootstrap");
+var modal_collaborator_component_1 = require("./modals/modal-collaborator.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -35,6 +42,8 @@ AppModule = __decorate([
             platform_browser_1.BrowserModule,
             forms_1.FormsModule,
             http_1.HttpModule,
+            ngx_bootstrap_1.ModalModule.forRoot(),
+            ngx_bootstrap_1.TabsModule.forRoot(),
             app_routing_1.routing
         ],
         declarations: [
@@ -42,8 +51,14 @@ AppModule = __decorate([
             index_2.AlertComponent,
             index_2.NavbarComponent,
             index_5.HomeComponent,
-            projects_component_1.ProjectsComponent,
+            projects_index_component_1.ProjectsIndexComponent,
+            projects_new_component_1.ProjectsNewComponent,
+            project_header_component_1.ProjectHeaderComponent,
+            project_show_component_1.ProjectShowComponent,
+            collaborators_index_component_1.CollaboratorsIndexComponent,
+            modal_collaborator_component_1.ModalCollaboratorComponent,
             index_6.LoginComponent,
+            lazy_component_1.LazyComponent,
             index_7.RegisterComponent
         ],
         providers: [

@@ -16,26 +16,37 @@ var ProjectService = (function () {
         this.http = http;
     }
     ProjectService.prototype.getAll = function (user) {
-        return this.http.get('/api/' + user.id + '/project', this.jwt()).map(function (response) { return response.json(); });
+        return this.http.get('/api/' + user.id + '/projects', this.jwt()).map(function (response) { return response.json(); });
     };
-    ProjectService.prototype.getById = function (user, id) {
-        return this.http.get('/api/' + user.id + '/project/' + id, this.jwt()).map(function (response) { return response.json(); });
+    ProjectService.prototype.getCollaborators = function (project_id) {
+        return this.http.get('/api/' + project_id + '/collaborators', this.jwt()).map(function (response) { return response.json(); });
     };
+    ProjectService.prototype.joinProject = function (user_id, project_id) {
+        return this.http.post('/api/' + user_id + '/projects/join', project_id, this.jwt()).map(function (response) { return response.json(); });
+    };
+    // getById(user: User, id: number) {
+    //     return this.http.get('/api/'+ user.id +'/projects/' + id, this.jwt()).map((response: Response) => response.json());
+    // }
+    //
     ProjectService.prototype.create = function (user, project) {
-        return this.http.post('/api/' + user.id + '/project', project, this.jwt()).map(function (response) { return response.json(); });
+        return this.http.post('/api/' + user.id + '/projects', project, this.jwt()).map(function (response) { return response.json(); });
     };
-    ProjectService.prototype.update = function (user, project) {
-        return this.http.put('/api/' + user.id + '/project/' + project.id, user, this.jwt()).map(function (response) { return response.json(); });
-    };
-    ProjectService.prototype.delete = function (user, id) {
-        return this.http.delete('/api/' + user.id + '/project/' + id, this.jwt()).map(function (response) { return response.json(); });
-    };
-    ProjectService.prototype.getAllLeadingProjects = function (user) {
-        return this.http.delete('/api/' + user.id + '/project/leading', this.jwt()).map(function (response) { return response.json(); });
-    };
-    ProjectService.prototype.getAllContributingProjects = function (user) {
-        return this.http.delete('/api/' + user.id + '/project/contributing', this.jwt()).map(function (response) { return response.json(); });
-    };
+    //
+    // update(user: User, project: Project) {
+    //     return this.http.put('/api/'+ user.id +'/projects/' + project.id, user, this.jwt()).map((response: Response) => response.json());
+    // }
+    //
+    // delete(user: User, id: number) {
+    //     return this.http.delete('/api/'+ user.id +'/projects/' + id, this.jwt()).map((response: Response) => response.json());
+    // }
+    //
+    // getAllLeadingProjects(user: User) {
+    //     return this.http.delete('/api/'+ user.id +'/projects/leading', this.jwt()).map((response: Response) => response.json());
+    // }
+    //
+    // getAllContributingProjects(user: User) {
+    //     return this.http.delete('/api/'+ user.id +'/projects/contributing', this.jwt()).map((response: Response) => response.json());
+    // }
     // private helper methods
     ProjectService.prototype.jwt = function () {
         // create authorization header with jwt token

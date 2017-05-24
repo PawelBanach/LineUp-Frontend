@@ -4,6 +4,8 @@ import { MockBackend, MockConnection } from '@angular/http/testing';
 export function fakeBackendFactory(backend: MockBackend, options: BaseRequestOptions, realBackend: XHRBackend) {
     // array in local storage for registered users
     let users: any[] = JSON.parse(localStorage.getItem('users')) || [];
+    let projects: any[] = JSON.parse(localStorage.getItem('projects')) || [];
+    let invitations: any[] = JSON.parse(localStorage.getItem('invitations')) || [];
 
     // configure fake backend
     backend.connections.subscribe((connection: MockConnection) => {
@@ -122,6 +124,71 @@ export function fakeBackendFactory(backend: MockBackend, options: BaseRequestOpt
 
                 return;
             }
+
+            // get all projects
+            if (connection.request.url.match(/\/api\/\d+\/projects/) && connection.request.method === RequestMethod.Get) {
+                // check for fake auth token in header and return user if valid, this security is implemented server side in a real application
+                if (connection.request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
+                    connection.mockRespond(new Response(new ResponseOptions({ status: 200, body: projects })));
+                } else {
+                    // return 401 not authorised if token is null or invalid
+                    connection.mockRespond(new Response(new ResponseOptions({ status: 401 })));
+                }
+                return;
+            }
+            // get all collaborators
+            if (connection.request.url.match(/\/api\/\d+\/collaborators/) && connection.request.method === RequestMethod.Get) {
+                if (connection.request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
+                    let project_id = parseInt(connection.request.url.match(/\d+/)[0])
+                    // TODO na razie zwróć wszystkich userów ale gdy obsłużysz zaproszenia to zwróć kolaboratorów
+                    connection.mockRespond(new Response(new ResponseOptions({ status: 200, body: users })));
+                } else {
+                    // return 401 not authorised if token is null or invalid
+                    connection.mockRespond(new Response(new ResponseOptions({ status: 401 })));
+                }
+                return;
+            }
+            debugger
+            // join project
+            if (connection.request.url.match(/\/api\/\d+\/projects\/join/) && connection.request.method === RequestMethod.Post) {
+                debugger
+                let user_id = parseInt(connection.request.url.match(/\d+/)[0])
+                let project_id = JSON.parse(connection.request.getBody());
+                if (connection.request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
+                    // TODO na razie zwróć wszystkich userów ale gdy obsłużysz zaproszenia to zwróć kolaboratorów
+                    connection.mockRespond(new Response(new ResponseOptions({ status: 200 })));
+                } else {
+                    // return 401 not authorised if token is null or invalid
+                    connection.mockRespond(new Response(new ResponseOptions({ status: 401 })));
+                }
+                return;
+            }
+
+            // create project
+            if (connection.request.url.match(/\/api\/\d+\/projects/) && connection.request.method === RequestMethod.Post) {
+                // get new user object from post body
+                let newProject = JSON.parse(connection.request.getBody());
+                // validation
+                let duplicateProject = projects.filter(project => { return project.title === newProject.title; }).length;
+                if (duplicateProject) {
+                    debugger
+                    return connection.mockError(new Error('Title of project: "' + newProject.title + '" is already taken'));
+                }
+
+                // save new project
+                newProject.id = projects.length + 1;
+                newProject.owner = parseInt(connection.request.url.match(/\d+/)[0])
+                newProject.status = "Not started"
+                projects.push(newProject);
+                localStorage.setItem('projects', JSON.stringify(projects));
+
+                // respond 200 OK
+                debugger
+                connection.mockRespond(new Response(new ResponseOptions({ status: 200 })));
+
+                return;
+            }
+
 
             // pass through any requests not handled above
             let realHttp = new Http(realBackend, options);

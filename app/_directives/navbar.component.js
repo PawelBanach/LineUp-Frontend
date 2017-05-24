@@ -18,7 +18,7 @@ var NavbarComponent = (function () {
     }
     NavbarComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.authenticationService.isLogged().subscribe(function (logged) { _this.isCustomerLogged = logged; debugger; });
+        this.authenticationService.isLogged().subscribe(function (logged) { _this.isCustomerLogged = logged; });
     };
     return NavbarComponent;
 }());
