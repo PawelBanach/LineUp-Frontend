@@ -1,0 +1,14 @@
+<div *ngIf="participationProjects?.length" class="row" style="width: inherit;margin: 0px;">
+    <div class="list-group" style="width:100%;">
+        <a class="list-group-item list-group-item-action" style="background-color: #ddd;border-bottom-width: thick;">
+            <div style="text-align: center;vertical-align: middle;width: 100%;padding: 20px;">
+                <h5>Participation in the following projects</h5>
+            </div>
+        </a>
+        <a class="list-group-item list-group-item-action"  *ngFor="let project of participationProjects"
+           style="background-color: #F5F5F5;border-bottom-width: thick;">
+            <project-header [project]="project" style="width: 100%;">
+            </project-header>
+        </a>
+    </div>
+</div>

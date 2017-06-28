@@ -12,48 +12,33 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var user_service_1 = require("../_services/user.service");
 var modal_collaborator_component_1 = require("../modals/modal-collaborator.component");
+var project_service_1 = require("../_services/project.service");
 var CollaboratorsIndexComponent = (function () {
-    function CollaboratorsIndexComponent(userService) {
+    function CollaboratorsIndexComponent(userService, projectService) {
         this.userService = userService;
+        this.projectService = projectService;
         this.collaborators = [];
         this.modalCollaborator = null;
+        this.myProjects = [];
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     }
     CollaboratorsIndexComponent.prototype.ngOnInit = function () {
         this.loadAllCollaborators();
+        this.loadMyProjects();
     };
-    // currentUser: User;
-    // users: User[] = [];
-    //
-    // constructor(private userService: UserService) {
-    //     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    // }
-    //
-    // ngOnInit() {
-    //     this.loadAllUsers();
-    // }
-    //
-    // deleteUser(id: number) {
-    //     this.userService.delete(id).subscribe(() => { this.loadAllUsers() });
-    // }
-    //
-    // private loadAllUsers() {
-    //     this.userService.getAll().subscribe(users => { this.users = users; });
-    //     debugger
-    // }
-    // private setIsNew() {
-    //     this.isNew = true;
-    // }
     CollaboratorsIndexComponent.prototype.showModal = function (collaborator) {
-        debugger;
         this.modalCollaborator = collaborator;
         this.modal.showModal();
     };
     CollaboratorsIndexComponent.prototype.loadAllCollaborators = function () {
         var _this = this;
         this.userService.getAll().subscribe(function (users) {
-            _this.collaborators = users.filter(function (user) { return user.id !== _this.currentUser.id; });
+            _this.collaborators = users.filter(function (user) { return user.userId !== _this.currentUser.userId; });
         });
+    };
+    CollaboratorsIndexComponent.prototype.loadMyProjects = function () {
+        var _this = this;
+        this.projectService.getProjectsOwner().subscribe(function (projects) { return _this.myProjects = projects; });
     };
     return CollaboratorsIndexComponent;
 }());
@@ -66,7 +51,7 @@ CollaboratorsIndexComponent = __decorate([
         moduleId: module.id,
         templateUrl: 'collaborators-index.component.html'
     }),
-    __metadata("design:paramtypes", [user_service_1.UserService])
+    __metadata("design:paramtypes", [user_service_1.UserService, project_service_1.ProjectService])
 ], CollaboratorsIndexComponent);
 exports.CollaboratorsIndexComponent = CollaboratorsIndexComponent;
 //# sourceMappingURL=collaborators-index.component.js.map

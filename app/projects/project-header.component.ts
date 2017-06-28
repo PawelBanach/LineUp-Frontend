@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import {Component, Input, OnInit} from "@angular/core";
 import { Project } from "../_models/project";
 
 @Component({
@@ -9,7 +9,6 @@ import { Project } from "../_models/project";
 
 export class ProjectHeaderComponent {
     @Input() project: Project;
-
 
     constructor() { }
 

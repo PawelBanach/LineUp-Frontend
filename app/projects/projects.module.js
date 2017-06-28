@@ -13,6 +13,11 @@ var projects_new_component_1 = require("./projects-new.component");
 var project_header_component_1 = require("./project-header.component");
 var project_show_component_1 = require("./project-show.component");
 var modal_collaborator_component_1 = require("../modals/modal-collaborator.component");
+var project_owner_component_1 = require("./project-owner.component");
+var project_participation_component_1 = require("./project-participation.component");
+var invitation_service_1 = require("../_services/invitation.service");
+var project_owner_history_component_1 = require("./project-owner-history.component");
+var project_participation_history_component_1 = require("./project-participation-history.component");
 var ProjectsModule = (function () {
     function ProjectsModule() {
     }
@@ -22,6 +27,7 @@ ProjectsModule = __decorate([
     core_1.NgModule({
         imports: [
             project_service_1.ProjectService,
+            invitation_service_1.InvitationService,
             modal_collaborator_component_1.ModalCollaboratorComponent
         ],
         declarations: [
@@ -29,6 +35,10 @@ ProjectsModule = __decorate([
             projects_new_component_1.ProjectsNewComponent,
             project_header_component_1.ProjectHeaderComponent,
             project_show_component_1.ProjectShowComponent,
+            project_owner_component_1.ProjectOwnerComponent,
+            project_participation_component_1.ProjectParticipationComponent,
+            project_owner_history_component_1.ProjectOwnerHistoryComponent,
+            project_participation_history_component_1.ProjectParticipationHistoryComponent,
         ],
         exports: [projects_new_component_1.ProjectsNewComponent, project_header_component_1.ProjectHeaderComponent, project_show_component_1.ProjectShowComponent],
     })

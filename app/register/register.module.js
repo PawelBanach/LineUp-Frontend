@@ -7,16 +7,22 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var ProjectsOwnerComponent = (function () {
-    function ProjectsOwnerComponent() {
+var register_component_1 = require("./register.component");
+var RegisterModule = (function () {
+    function RegisterModule() {
     }
-    return ProjectsOwnerComponent;
+    return RegisterModule;
 }());
-ProjectsOwnerComponent = __decorate([
-    core_1.Component({
-        moduleId: module.id,
-        templateUrl: 'projects-index.component.html'
+RegisterModule = __decorate([
+    core_1.NgModule({
+        imports: [],
+        declarations: [
+            register_component_1.RegisterComponent
+        ],
+        exports: [
+            register_component_1.RegisterComponent
+        ],
     })
-], ProjectsOwnerComponent);
-exports.ProjectsOwnerComponent = ProjectsOwnerComponent;
-//# sourceMappingURL=projects-owner.component.js.map
+], RegisterModule);
+exports.RegisterModule = RegisterModule;
+//# sourceMappingURL=register.module.js.map

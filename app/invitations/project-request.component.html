@@ -1,0 +1,23 @@
+<div *ngIf="user" class="row">
+    <div class="col-3">
+        <div style="width:100%;">
+            <h6 class="modal-title pull-left">{{user?.firstName}} {{user?.lastName}}</h6>
+        </div>
+    </div>
+    <div class="col-3">
+        <div style="width:100%;"><small><strong>{{user?.department}}</strong></small></div>
+        <div><small>{{user?.fieldOfStudy}}</small></div>
+    </div>
+    <div class="col-4">
+        <div *ngIf="user.technologies.length !== 0">
+            <a *ngFor="let tech of user.technologies" style="margin-bottom: 10px;">
+                <div class="badge badge-pill badge-success">{{tech}}</div>
+            </a>
+        </div>
+        <div><small><i>{{user?.email}}</i></small></div>
+    </div>
+    <div class="col-2">
+        <button class="btn btn-success btn-sm" (click)="acceptUser()"><i class="fa fa-check"></i></button>
+        <button class="btn btn-danger btn-sm" (click)="declineUser()"><i class="fa fa-times"></i></button>
+    </div>
+</div>

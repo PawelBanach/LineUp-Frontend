@@ -1,35 +1,72 @@
-﻿<h3>Hi {{currentUser.firstName}}!</h3>
-<div>
+﻿<div>
     <hr/>
     <tabset #staticTabs [justified]="true">
         <tab>
             <template tabHeading>
                 <i class="fa fa-tasks"></i>  Projects
             </template>
-            <!--TODO wszystkie projekty w których jestem ownerem-->
-            <!--TODO wszystkie projekty do których należę-->
-            Projects
+            <div class="row" style="margin: 50px 0px;">
+                <div *ngIf="!projectsOwner?.length" style="margin: 50px 0px;width: 100%;text-align: center;">
+                    <h6>There is no your projects</h6>
+                    <h5><i>Create one using <strong>New Project</strong> tab</i></h5>
+                </div>
+                <div class="list-group" style="width:100%;">
+                    <a class="list-group-item list-group-item-action"  *ngFor="let project of projectsOwner"
+                        style="background-color: #F5F5F5;border-bottom-width: thick;">
+                        <project-owner [project]="project" style="width: 100%;">
+                        </project-owner>
+                    </a>
+                </div>
+                <project-participation style="width:100%;">
+                </project-participation>
+            </div>
         </tab>
         <tab>
             <template tabHeading>
                 <i class="fa fa-plus-square"></i>  New Project
             </template>
-            New Project
+            <projects-new>
+            </projects-new>
         </tab>
         <tab>
             <template tabHeading>
             <i class="fa fa-history"></i>  Projects History
             </template>
-            <!--TODO Wszystkie projekty do których należałem lub byłem leadem ze statudem ENDED-->
-            Projects History
+            <div *ngIf="!projectsOwnerHistory?.length && !projectsParticipationHistory?.length" style="margin: 50px 0px;width: 100%;text-align: center;">
+                <h6>There is no closed projects</h6>
+            </div>
+            <div class="row" style="margin: 50px 0px;">
+                <div *ngIf="projectsOwnerHistory" class="list-group" style="width:100%;">
+                    <a class="list-group-item list-group-item-action"  *ngFor="let project of projectsOwnerHistory"
+                       style="border-bottom-width: thick;">
+                        <project-owner-history [project]="project" style="width: 100%;">
+                        </project-owner-history>
+                    </a>
+                </div>
+                <div *ngIf="projectsParticipationHistory" class="list-group" style="width:100%;">
+                    <a class="list-group-item list-group-item-action"  *ngFor="let project of projectsParticipationHistory"
+                       style="border-bottom-width: thick;">
+                        <project-participation-history [project]="project" style="width: 100%;">
+                        </project-participation-history>
+                    </a>
+                </div>
+            </div>
         </tab>
         <tab>
             <template tabHeading>
-            <i class="fa fa-envelope-square"></i>  Invitations
+                <i class="fa fa-envelope-square"></i>  Invitations  ({{invitations?.length}})
             </template>
-            <!--TODO wszytkie zaproszenia do projektów-->
-            <!--TODO Historia zaproszeń-->
-            Invitations
+            <div class="row" style="margin: 50px 0px;">
+                <div *ngIf="!invitations?.length" style="margin: 50px 0px;width: 100%;text-align: center;">
+                    <h6>There is no invitations to projects</h6>
+                </div>
+                <div *ngIf="invitations" class="list-group" style="width:100%;">
+                    <a class="list-group-item list-group-item-action"  *ngFor="let invitation of invitations">
+                        <invitation [invitation]="invitation" style="width:100%;">
+                        </invitation>
+                    </a>
+                </div>
+            </div>
         </tab>
     </tabset>
 </div>

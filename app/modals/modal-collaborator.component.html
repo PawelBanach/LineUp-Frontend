@@ -10,17 +10,30 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div>
-                    <h6>Projects</h6>
-                    <!--TODO dodac liste projektów-->
-                    <p><i>List of projects is empty</i></p>
+                <!--<div>-->
+                    <!--<h6>Projects</h6>-->
+                    <!--&lt;!&ndash;TODO dodac liste projektów&ndash;&gt;-->
+                    <!--<p><i>List of projects is empty</i></p>-->
+                <!--</div>-->
+                <div *ngIf="collaborator?.technologies">
+                    <a *ngFor="let tech of collaborator.technologies" style="margin-bottom: 10px;">
+                        <div class="badge badge-pill badge-success">{{tech}}</div>
+                    </a>
                 </div>
-                <div class="badge badge-pill badge-success" style="margin-bottom: 10px;">{{collaborator?.skills}}</div>
-                <div><small><i>{{collaborator?.email}}</i></small></div>
+                <div><i>{{collaborator?.email}}</i></div>
             </div>
             <div class="modal-footer">
-                <!--TODO zrobić component do wysyłania zaproszeń-->
-                <button class="btn btn-success btn-sm"><small>Invite to project</small></button>
+                <div *ngIf="myProjects?.length" style="width: 100%;text-align: right;">
+                    <span *ngIf="errors" style="color:darkred;">{{errors}}</span>
+                    <select id="project" #project>
+                        <option *ngFor="let project of myProjects"
+                                [value]="project.projectId">
+                            <small>{{ project.title }}</small>
+                        </option>
+                    </select>
+                    <button class="btn btn-success btn-sm" (click)="inviteToProject(collaborator)">
+                        <small>Invite to project</small></button>
+                </div>
                 <button type="button"
                         class="btn btn-danger btn-sm"
                         data-dismiss="modal"

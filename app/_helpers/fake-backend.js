@@ -25,7 +25,7 @@ function fakeBackendFactory(backend, options, realBackend) {
                     connection.mockRespond(new http_1.Response(new http_1.ResponseOptions({
                         status: 200,
                         body: {
-                            id: user.id,
+                            id: user.userId,
                             username: user.username,
                             firstName: user.firstName,
                             lastName: user.lastName,
@@ -58,7 +58,7 @@ function fakeBackendFactory(backend, options, realBackend) {
                     // find user by id in users array
                     var urlParts = connection.request.url.split('/');
                     var id_1 = parseInt(urlParts[urlParts.length - 1]);
-                    var matchedUsers = users.filter(function (user) { return user.id === id_1; });
+                    var matchedUsers = users.filter(function (user) { return user.userId === id_1; });
                     var user = matchedUsers.length ? matchedUsers[0] : null;
                     // respond 200 OK with user
                     connection.mockRespond(new http_1.Response(new http_1.ResponseOptions({ status: 200, body: user })));
@@ -79,7 +79,7 @@ function fakeBackendFactory(backend, options, realBackend) {
                     return connection.mockError(new Error('Username "' + newUser_1.username + '" is already taken'));
                 }
                 // save new user
-                newUser_1.id = users.length + 1;
+                newUser_1.userId = users.length + 1;
                 users.push(newUser_1);
                 localStorage.setItem('users', JSON.stringify(users));
                 // respond 200 OK
@@ -95,7 +95,7 @@ function fakeBackendFactory(backend, options, realBackend) {
                     var id = parseInt(urlParts[urlParts.length - 1]);
                     for (var i = 0; i < users.length; i++) {
                         var user = users[i];
-                        if (user.id === id) {
+                        if (user.userId === id) {
                             // delete user
                             users.splice(i, 1);
                             localStorage.setItem('users', JSON.stringify(users));
@@ -136,10 +136,8 @@ function fakeBackendFactory(backend, options, realBackend) {
                 }
                 return;
             }
-            debugger;
             // join project
             if (connection.request.url.match(/\/api\/\d+\/projects\/join/) && connection.request.method === http_1.RequestMethod.Post) {
-                debugger;
                 var user_id = parseInt(connection.request.url.match(/\d+/)[0]);
                 var project_id = JSON.parse(connection.request.getBody());
                 if (connection.request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
@@ -159,17 +157,15 @@ function fakeBackendFactory(backend, options, realBackend) {
                 // validation
                 var duplicateProject = projects.filter(function (project) { return project.title === newProject_1.title; }).length;
                 if (duplicateProject) {
-                    debugger;
                     return connection.mockError(new Error('Title of project: "' + newProject_1.title + '" is already taken'));
                 }
                 // save new project
-                newProject_1.id = projects.length + 1;
+                newProject_1.projectId = projects.length + 1;
                 newProject_1.owner = parseInt(connection.request.url.match(/\d+/)[0]);
                 newProject_1.status = "Not started";
                 projects.push(newProject_1);
                 localStorage.setItem('projects', JSON.stringify(projects));
                 // respond 200 OK
-                debugger;
                 connection.mockRespond(new http_1.Response(new http_1.ResponseOptions({ status: 200 })));
                 return;
             }

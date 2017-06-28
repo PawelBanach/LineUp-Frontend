@@ -15,44 +15,73 @@ var ProjectService = (function () {
     function ProjectService(http) {
         this.http = http;
     }
-    ProjectService.prototype.getAll = function (user) {
-        return this.http.get('/api/' + user.id + '/projects', this.jwt()).map(function (response) { return response.json(); });
+    ProjectService.prototype.getAll = function () {
+        return this.http.get('https://line-up-backend.herokuapp.com/projects', this.jwt())
+            .map(function (response) { return response.json(); });
     };
-    ProjectService.prototype.getCollaborators = function (project_id) {
-        return this.http.get('/api/' + project_id + '/collaborators', this.jwt()).map(function (response) { return response.json(); });
+    ProjectService.prototype.getProject = function (project_id) {
+        return this.http.get('https://line-up-backend.herokuapp.com/projects/' + project_id, this.jwt())
+            .map(function (response) { return response.json(); });
+    };
+    ProjectService.prototype.getMyProjects = function () {
+        return this.http.get('https://line-up-backend.herokuapp.com/projects/collaborated', this.jwt())
+            .map(function (response) { return response.json(); });
+    };
+    ProjectService.prototype.getProjectsOwner = function () {
+        return this.http.get('https://line-up-backend.herokuapp.com/projects/me', this.jwt())
+            .map(function (response) { return response.json(); });
+    };
+    ProjectService.prototype.addParticipantToProject = function (project_id, participant_id) {
+        return this.http.post('https://line-up-backend.herokuapp.com/projects/' + project_id + '/participants', { "userId": participant_id }, this.jwt())
+            .map(function (response) { return response.json(); });
+    };
+    ProjectService.prototype.removeParticipantFromProject = function (project_id, participant_id) {
+        // TODO powiedzieć Michałowi że DELETE nie ma body
+        return this.http.delete('https://line-up-backend.herokuapp.com/projects/' + project_id + '/participants/' + participant_id, this.jwt())
+            .map(function (response) { return response.json(); });
+    };
+    ProjectService.prototype.getParticipants = function (project_id) {
+        return this.http.get('https://line-up-backend.herokuapp.com/projects/' + project_id + '/participants', this.jwt())
+            .map(function (response) { return response.json(); });
     };
     ProjectService.prototype.joinProject = function (user_id, project_id) {
-        return this.http.post('/api/' + user_id + '/projects/join', project_id, this.jwt()).map(function (response) { return response.json(); });
+        return this.http.post('https://line-up-backend.herokuapp.com/projects/' + project_id + '/join', { "who": user_id }, this.jwt())
+            .map(function (response) { return response.json(); });
     };
-    // getById(user: User, id: number) {
-    //     return this.http.get('/api/'+ user.id +'/projects/' + id, this.jwt()).map((response: Response) => response.json());
-    // }
-    //
-    ProjectService.prototype.create = function (user, project) {
-        return this.http.post('/api/' + user.id + '/projects', project, this.jwt()).map(function (response) { return response.json(); });
+    ProjectService.prototype.inviteToProject = function (user_id, project_id) {
+        return this.http.post('https://line-up-backend.herokuapp.com/projects/' + project_id + '/invite', { "who": user_id }, this.jwt())
+            .map(function (response) { return response.json(); });
     };
-    //
-    // update(user: User, project: Project) {
-    //     return this.http.put('/api/'+ user.id +'/projects/' + project.id, user, this.jwt()).map((response: Response) => response.json());
-    // }
-    //
-    // delete(user: User, id: number) {
-    //     return this.http.delete('/api/'+ user.id +'/projects/' + id, this.jwt()).map((response: Response) => response.json());
-    // }
-    //
-    // getAllLeadingProjects(user: User) {
-    //     return this.http.delete('/api/'+ user.id +'/projects/leading', this.jwt()).map((response: Response) => response.json());
-    // }
-    //
-    // getAllContributingProjects(user: User) {
-    //     return this.http.delete('/api/'+ user.id +'/projects/contributing', this.jwt()).map((response: Response) => response.json());
-    // }
+    ProjectService.prototype.create = function (project) {
+        return this.http.post('https://line-up-backend.herokuapp.com/projects', project, this.jwt())
+            .map(function (response) { return response.json(); });
+    };
+    ProjectService.prototype.update = function (project) {
+        return this.http.put('https://line-up-backend.herokuapp.com/projects/' + project.projectId, project, this.jwt())
+            .map(function (response) { return response.json(); });
+    };
+    ProjectService.prototype.startProject = function (project_id) {
+        return this.http.put('https://line-up-backend.herokuapp.com/projects/' + project_id + '/activate', {}, this.jwt())
+            .map(function (response) { return response.json(); });
+    };
+    ProjectService.prototype.endProject = function (project_id) {
+        return this.http.put('https://line-up-backend.herokuapp.com/projects/' + project_id + '/end', {}, this.jwt())
+            .map(function (response) { return response.json(); });
+    };
+    ProjectService.prototype.inactiveProject = function (project_id) {
+        return this.http.put('https://line-up-backend.herokuapp.com/projects/' + project_id + '/inactivate', {}, this.jwt())
+            .map(function (response) { return response.json(); });
+    };
+    ProjectService.prototype.getHistory = function () {
+        return this.http.get('https://line-up-backend.herokuapp.com/projects/history', this.jwt())
+            .map(function (response) { return response.json(); });
+    };
     // private helper methods
     ProjectService.prototype.jwt = function () {
         // create authorization header with jwt token
         var currentUser = JSON.parse(localStorage.getItem('currentUser'));
         if (currentUser && currentUser.token) {
-            var headers = new http_1.Headers({ 'Authorization': 'Bearer ' + currentUser.token });
+            var headers = new http_1.Headers({ 'Authorization': currentUser.token });
             return new http_1.RequestOptions({ headers: headers });
         }
     };

@@ -10,18 +10,15 @@ var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
 var forms_1 = require("@angular/forms");
 var http_1 = require("@angular/http");
-// used to create fake backend
-var index_1 = require("./_helpers/index");
 var testing_1 = require("@angular/http/testing");
 var http_2 = require("@angular/http");
 var app_component_1 = require("./app.component");
 var app_routing_1 = require("./app.routing");
-var index_2 = require("./_directives/index");
-var index_3 = require("./_guards/index");
-var index_4 = require("./_services/index");
-var index_5 = require("./home/index");
-var index_6 = require("./login/index");
-var index_7 = require("./register/index");
+var index_1 = require("./_directives/index");
+var index_2 = require("./_guards/index");
+var index_3 = require("./_services/index");
+var home_component_1 = require("./home/home.component");
+var index_4 = require("./login/index");
 var projects_index_component_1 = require("./projects/projects-index.component");
 var project_service_1 = require("./_services/project.service");
 var lazy_component_1 = require("./lazy/lazy.component");
@@ -31,6 +28,15 @@ var collaborators_index_component_1 = require("./collaborators/collaborators-ind
 var project_show_component_1 = require("./projects/project-show.component");
 var ngx_bootstrap_1 = require("ngx-bootstrap");
 var modal_collaborator_component_1 = require("./modals/modal-collaborator.component");
+var project_owner_component_1 = require("./projects/project-owner.component");
+var project_participation_component_1 = require("./projects/project-participation.component");
+var invitation_service_1 = require("./_services/invitation.service");
+var project_request_component_1 = require("./invitations/project-request.component");
+var invitation_component_1 = require("./invitations/invitation.component");
+var register_component_1 = require("./register/register.component");
+var project_owner_history_component_1 = require("./projects/project-owner-history.component");
+var project_participation_history_component_1 = require("./projects/project-participation-history.component");
+var user_edit_component_1 = require("./users/user-edit.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -48,27 +54,35 @@ AppModule = __decorate([
         ],
         declarations: [
             app_component_1.AppComponent,
-            index_2.AlertComponent,
-            index_2.NavbarComponent,
-            index_5.HomeComponent,
+            index_1.AlertComponent,
+            index_1.NavbarComponent,
+            home_component_1.HomeComponent,
             projects_index_component_1.ProjectsIndexComponent,
             projects_new_component_1.ProjectsNewComponent,
             project_header_component_1.ProjectHeaderComponent,
             project_show_component_1.ProjectShowComponent,
+            project_owner_component_1.ProjectOwnerComponent,
+            project_participation_component_1.ProjectParticipationComponent,
+            project_owner_history_component_1.ProjectOwnerHistoryComponent,
+            project_participation_history_component_1.ProjectParticipationHistoryComponent,
             collaborators_index_component_1.CollaboratorsIndexComponent,
             modal_collaborator_component_1.ModalCollaboratorComponent,
-            index_6.LoginComponent,
+            project_request_component_1.ProjectRequestComponent,
+            invitation_component_1.InvitationComponent,
+            index_4.LoginComponent,
             lazy_component_1.LazyComponent,
-            index_7.RegisterComponent
+            user_edit_component_1.UserEditComponent,
+            register_component_1.RegisterComponent
         ],
         providers: [
-            index_3.AuthGuard,
-            index_4.AlertService,
-            index_4.AuthenticationService,
-            index_4.UserService,
+            index_2.AuthGuard,
+            index_3.AlertService,
+            index_3.AuthenticationService,
+            index_3.UserService,
             project_service_1.ProjectService,
+            invitation_service_1.InvitationService,
             // providers used to create fake backend
-            index_1.fakeBackendProvider,
+            // fakeBackendProvider,
             testing_1.MockBackend,
             http_2.BaseRequestOptions
         ],

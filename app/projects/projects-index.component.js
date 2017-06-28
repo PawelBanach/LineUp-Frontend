@@ -29,7 +29,7 @@ var ProjectsIndexComponent = (function () {
     };
     ProjectsIndexComponent.prototype.loadAllProjects = function () {
         var _this = this;
-        this.projectService.getAll(this.currentUser).subscribe(function (projects) { _this.projects = projects; });
+        this.projectService.getAll().subscribe(function (projects) { _this.projects = projects; });
     };
     return ProjectsIndexComponent;
 }());

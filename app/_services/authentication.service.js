@@ -18,9 +18,10 @@ var AuthenticationService = (function () {
         this.http = http;
         this.logged = new Subject_1.Subject();
     }
-    AuthenticationService.prototype.login = function (username, password) {
+    AuthenticationService.prototype.login = function (email, password) {
+        //let response =  this.http.post('https://line-up-backend.herokuapp.com/users', user).map((response: Response) => response.json())
         var _this = this;
-        return this.http.post('/api/authenticate', JSON.stringify({ username: username, password: password }))
+        return this.http.post('https://line-up-backend.herokuapp.com/users/auth', { email: email, password: password })
             .map(function (response) {
             // login successful if there's a jwt token in the response
             var user = response.json();

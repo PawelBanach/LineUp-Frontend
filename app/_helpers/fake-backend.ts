@@ -11,7 +11,6 @@ export function fakeBackendFactory(backend: MockBackend, options: BaseRequestOpt
     backend.connections.subscribe((connection: MockConnection) => {
         // wrap in timeout to simulate server api call
         setTimeout(() => {
-
             // authenticate
             if (connection.request.url.endsWith('/api/authenticate') && connection.request.method === RequestMethod.Post) {
                 // get parameters from post request
@@ -28,7 +27,7 @@ export function fakeBackendFactory(backend: MockBackend, options: BaseRequestOpt
                     connection.mockRespond(new Response(new ResponseOptions({
                         status: 200,
                         body: {
-                            id: user.id,
+                            id: user.userId,
                             username: user.username,
                             firstName: user.firstName,
                             lastName: user.lastName,
@@ -63,7 +62,7 @@ export function fakeBackendFactory(backend: MockBackend, options: BaseRequestOpt
                     // find user by id in users array
                     let urlParts = connection.request.url.split('/');
                     let id = parseInt(urlParts[urlParts.length - 1]);
-                    let matchedUsers = users.filter(user => { return user.id === id; });
+                    let matchedUsers = users.filter(user => { return user.userId === id; });
                     let user = matchedUsers.length ? matchedUsers[0] : null;
 
                     // respond 200 OK with user
@@ -88,7 +87,7 @@ export function fakeBackendFactory(backend: MockBackend, options: BaseRequestOpt
                 }
 
                 // save new user
-                newUser.id = users.length + 1;
+                newUser.userId = users.length + 1;
                 users.push(newUser);
                 localStorage.setItem('users', JSON.stringify(users));
 
@@ -107,7 +106,7 @@ export function fakeBackendFactory(backend: MockBackend, options: BaseRequestOpt
                     let id = parseInt(urlParts[urlParts.length - 1]);
                     for (let i = 0; i < users.length; i++) {
                         let user = users[i];
-                        if (user.id === id) {
+                        if (user.userId === id) {
                             // delete user
                             users.splice(i, 1);
                             localStorage.setItem('users', JSON.stringify(users));
@@ -148,10 +147,8 @@ export function fakeBackendFactory(backend: MockBackend, options: BaseRequestOpt
                 }
                 return;
             }
-            debugger
             // join project
             if (connection.request.url.match(/\/api\/\d+\/projects\/join/) && connection.request.method === RequestMethod.Post) {
-                debugger
                 let user_id = parseInt(connection.request.url.match(/\d+/)[0])
                 let project_id = JSON.parse(connection.request.getBody());
                 if (connection.request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
@@ -171,19 +168,17 @@ export function fakeBackendFactory(backend: MockBackend, options: BaseRequestOpt
                 // validation
                 let duplicateProject = projects.filter(project => { return project.title === newProject.title; }).length;
                 if (duplicateProject) {
-                    debugger
                     return connection.mockError(new Error('Title of project: "' + newProject.title + '" is already taken'));
                 }
 
                 // save new project
-                newProject.id = projects.length + 1;
+                newProject.projectId = projects.length + 1;
                 newProject.owner = parseInt(connection.request.url.match(/\d+/)[0])
                 newProject.status = "Not started"
                 projects.push(newProject);
                 localStorage.setItem('projects', JSON.stringify(projects));
 
                 // respond 200 OK
-                debugger
                 connection.mockRespond(new Response(new ResponseOptions({ status: 200 })));
 
                 return;

@@ -21,43 +21,34 @@
                    required />
             <div *ngIf="f.submitted && !lastName.valid" class="help-block">Last Name is required</div>
         </div>
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !age.valid }">
-            <label for="age">Age</label>
-            <input type="range"
-                   min="5"
-                   max="100"
-                   step="1"
-                   class="form-control"
-                   name="age"
-                   [(ngModel)]="model.age"
-                   #age="ngModel"
-                   (change)="changeAge(age.value)" />
-            <div>{{age.value || 50}}</div>
-        </div>
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !department.valid }">
+        <div class="form-group">
             <label for="department">Department</label>
-            <input type="text"
-                   class="form-control"
-                   name="department"
-                   [(ngModel)]="model.department"
-                   #department="ngModel" />
+            <select *ngIf="departments" [(ngModel)]="model.department" name="department" class="form-control" #department="ngModel">
+                <option *ngFor="let department of departments"
+                        [value]="department">
+                    {{ department }}
+                </option>
+            </select>
         </div>
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !fieldOfStudy.valid }">
+        <div class="form-group">
             <label for="fieldOfStudy">Field of Study</label>
-            <input type="text"
-                   class="form-control"
-                   name="fieldOfStudy"
-                   [(ngModel)]="model.fieldOfStudy"
-                   #fieldOfStudy="ngModel" />
+            <select *ngIf="fieldOfStudies" [(ngModel)]="model.fieldOfStudy" name="fieldOfStudy" class="form-control" #fieldOfStudy="ngModel">
+                <option *ngFor="let fieldOfStudy of fieldOfStudies"
+                        [value]="fieldOfStudy">
+                    {{ fieldOfStudy }}
+                </option>
+            </select>
         </div>
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !skills.valid }">
-            <label for="skills">Skills</label>
-            <input type="text"
-                   class="form-control"
-                   name="skills"
-                   [(ngModel)]="model.skills"
-                   #skills="ngModel" />
+        <div class="form-group">
+            <label for="technologies">Technologies</label>
+            <select multiple *ngIf="techs" [(ngModel)]="model.technologies" name="technologies" class="form-control" #technologies="ngModel">
+                <option *ngFor="let technology of techs"
+                        [value]="technology">
+                    {{ technology }}
+                </option>
+            </select>
         </div>
+
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !email.valid }">
             <label for="email">Email</label>
             <input type="email"
@@ -69,11 +60,6 @@
                    pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"/>
             <div *ngIf="f.submitted && !email.valid && email.errors.required" class="help-block">Email is required</div>
             <div *ngIf="f.submitted && !email.valid && email.errors.pattern" class="help-block">Email is invalid</div>
-        </div>
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
-            <label for="username">Username</label>
-            <input type="text" class="form-control" name="username" [(ngModel)]="model.username" #username="ngModel" required />
-            <div *ngIf="f.submitted && !username.valid" class="help-block">Username is required</div>
         </div>
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
             <label for="password">Password</label>

@@ -1,0 +1,25 @@
+<div *ngIf="project" class="container" style="margin-top: 30px;">
+    <div class="row">
+        <div class="col-7">
+            <h5><i class="fa fa-user-circle"></i>   {{project.title}}</h5>
+        </div>
+        <div class="col-3">
+            <div class="alert-success alert" style="padding: 6px 8px;">
+                <small>Status: <strong>{{project.status}}</strong></small>
+            </div>
+        </div>
+        <div class="col-2">
+            <button *ngIf="project.status==='ACTIVE'" class="btn btn-info btn-sm" (click)="inactiveProject()"><i class="fa fa-pause"></i></button>
+            <button *ngIf="project.status==='INACTIVE'" class="btn btn-primary btn-sm" (click)="startProject()"><i class="fa fa-play"></i></button>
+            <button class="btn btn-danger btn-sm" (click)="endProject()"><i class="fa fa-stop"></i></button>
+            <button class="btn btn-warning btn-sm" (click)="editProject()"><i class="fa fa-pencil-square-o"></i></button>
+        </div>
+    </div>
+    <div class="row">
+        <h6>Request for joining to project</h6>
+        <a class="list-group-item list-group-item-action" *ngFor="let invitation of joiningRequests">
+            <project-request [invitation]="invitation" style="width: 100%;">
+            </project-request>
+        </a>
+    </div>
+</div>

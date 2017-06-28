@@ -19,8 +19,12 @@ var RegisterComponent = (function () {
         this.alertService = alertService;
         this.model = {};
         this.loading = false;
-        this.age = 18;
     }
+    RegisterComponent.prototype.ngOnInit = function () {
+        this.loadDepartments();
+        this.loadFieldOfStudies();
+        this.loadTechnologies();
+    };
     RegisterComponent.prototype.register = function () {
         var _this = this;
         this.loading = true;
@@ -33,8 +37,17 @@ var RegisterComponent = (function () {
             _this.loading = false;
         });
     };
-    RegisterComponent.prototype.changeAge = function (age) {
-        this.age = age;
+    RegisterComponent.prototype.loadDepartments = function () {
+        var _this = this;
+        this.userService.loadDepartments().subscribe(function (departments) { return _this.departments = departments; });
+    };
+    RegisterComponent.prototype.loadFieldOfStudies = function () {
+        var _this = this;
+        this.userService.loadFieldOfStudies().subscribe(function (studies) { return _this.fieldOfStudies = studies; });
+    };
+    RegisterComponent.prototype.loadTechnologies = function () {
+        var _this = this;
+        this.userService.loadTechnologies().subscribe(function (technologies) { return _this.techs = technologies; });
     };
     return RegisterComponent;
 }());

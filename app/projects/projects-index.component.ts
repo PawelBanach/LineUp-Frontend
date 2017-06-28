@@ -8,7 +8,7 @@ import { ProjectService } from '../_services/project.service';
 })
 
 export class ProjectsIndexComponent implements OnInit {
-    currentUser: User;
+    currentUser: any;
     activeProject: Project = null;
     projects: Project[] = [];
 
@@ -29,6 +29,6 @@ export class ProjectsIndexComponent implements OnInit {
     }
 
     private loadAllProjects() {
-        this.projectService.getAll(this.currentUser).subscribe(projects => { this.projects = projects; });
+        this.projectService.getAll().subscribe(projects => { this.projects = projects; });
     }
 }

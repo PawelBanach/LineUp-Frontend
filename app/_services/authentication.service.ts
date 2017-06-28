@@ -11,8 +11,10 @@ export class AuthenticationService {
 
     constructor(private http: Http) { }
 
-    login(username: string, password: string) {
-        return this.http.post('/api/authenticate', JSON.stringify({ username: username, password: password }))
+    login(email: string, password: string) {
+        //let response =  this.http.post('https://line-up-backend.herokuapp.com/users', user).map((response: Response) => response.json())
+
+        return this.http.post('https://line-up-backend.herokuapp.com/users/auth', { email: email, password: password })
             .map((response: Response) => {
                 // login successful if there's a jwt token in the response
                 let user = response.json();

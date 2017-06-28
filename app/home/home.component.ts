@@ -2,6 +2,10 @@
 
 import { User } from '../_models/index';
 import { UserService } from '../_services/index';
+import { Project } from "../_models/project";
+import {ProjectService} from "../_services/project.service";
+import {Invitation} from "../_models/invitation";
+import {InvitationService} from "../_services/invitation.service";
 
 @Component({
     moduleId: module.id,
@@ -10,21 +14,25 @@ import { UserService } from '../_services/index';
 
 export class HomeComponent implements OnInit {
     currentUser: User;
-    users: User[] = [];
+    projectsOwner: Project[] = [];
+    projectsOwnerHistory: Project[] = [];
+    projectsParticipationHistory: Project[] = [];
+    invitations: Invitation[] = [];
 
-    constructor(private userService: UserService) {
+    constructor(private projectService: ProjectService, private invitationService: InvitationService) {
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     }
 
     ngOnInit() {
-        this.loadAllUsers();
+        this.loadProjectsOwner();
     }
 
-    deleteUser(id: number) {
-        this.userService.delete(id).subscribe(() => { this.loadAllUsers() });
-    }
-
-    private loadAllUsers() {
-        this.userService.getAll().subscribe(users => { this.users = users; });
+    private loadProjectsOwner() {
+        this.projectService.getProjectsOwner().subscribe(projects => { this.projectsOwner = projects;});
+        this.invitationService.getInvitations().subscribe(invitations => { this.invitations = invitations; });
+        this.projectService.getHistory().subscribe(projects => {
+            this.projectsOwnerHistory = projects.owned;
+            this.projectsParticipationHistory = projects.participated;
+        })
     }
 }

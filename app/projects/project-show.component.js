@@ -11,7 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var project_1 = require("../_models/project");
-var user_1 = require("../_models/user");
 var user_service_1 = require("../_services/user.service");
 var project_service_1 = require("../_services/project.service");
 var alert_service_1 = require("../_services/alert.service");
@@ -22,24 +21,39 @@ var ProjectShowComponent = (function () {
         this.projectService = projectService;
         this.alertService = alertService;
         this.collaborators = [];
+        this.myProjects = [];
         this.modalCollaborator = null;
         this.closeProject = new core_1.EventEmitter();
     }
     ProjectShowComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.userService.getById(this.project.owner).subscribe(function (user) { _this.owner = user; });
-        this.projectService.getCollaborators(this.project.id).subscribe(function (users) { _this.collaborators = users; });
+        this.loadOwner();
+        this.loadCollaborators();
+        this.loadMyProjects();
     };
     ProjectShowComponent.prototype.close = function () {
         this.closeProject.emit();
     };
     ProjectShowComponent.prototype.joinProject = function () {
         var _this = this;
-        this.projectService.joinProject(this.currentUser.id, this.project.id).subscribe(function (data) {
+        this.projectService.joinProject(this.currentUser.id, this.project.projectId).subscribe(function (data) {
             _this.alertService.success('Request for joining to project was sent!', true);
         }, function (error) {
             _this.alertService.error('Server error, try again later!');
         });
+    };
+    ProjectShowComponent.prototype.loadMyProjects = function () {
+        var _this = this;
+        this.projectService.getProjectsOwner().subscribe(function (projects) { return _this.myProjects = projects; });
+    };
+    ProjectShowComponent.prototype.loadCollaborators = function () {
+        var _this = this;
+        this.projectService.getParticipants(this.project.projectId).subscribe(function (users) {
+            _this.collaborators = users;
+        });
+    };
+    ProjectShowComponent.prototype.loadOwner = function () {
+        var _this = this;
+        this.userService.getById(this.project.owner).subscribe(function (user) { _this.owner = user; });
     };
     ProjectShowComponent.prototype.showModal = function (collaborator) {
         this.modalCollaborator = collaborator;
@@ -49,7 +63,7 @@ var ProjectShowComponent = (function () {
 }());
 __decorate([
     core_1.Input(),
-    __metadata("design:type", user_1.User)
+    __metadata("design:type", Object)
 ], ProjectShowComponent.prototype, "currentUser", void 0);
 __decorate([
     core_1.Input(),

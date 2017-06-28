@@ -1,6 +1,5 @@
-<div class="row view-900">
+<div class="row view-900" style="margin-top: 50px;">
     <div class="col-sm-12">
-        <h4>New Project</h4>
         <div class="col-md-6 col-md-offset-3">
             <form name="form" (ngSubmit)="f.form.valid && saveProject()" #f="ngForm" novalidate>
                 <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !title.valid }">
@@ -20,22 +19,22 @@
                            [(ngModel)]="model.description"
                            #description="ngModel">Opis projektu...</textarea>
                 </div>
-                <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !github.valid }">
-                    <label for="github">GitHub</label>
+                <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !versionControlUrl.valid }">
+                    <label for="versionControlUrl">Version Control URL</label>
                     <input type="text"
                            class="form-control"
-                           name="github"
-                           [(ngModel)]="model.github"
-                           #github="ngModel" />
+                           name="versionControlUrl"
+                           [(ngModel)]="model.versionControlUrl"
+                           #versionControlUrl="ngModel" />
                 </div>
-                <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !technologies.valid }">
+                <div class="form-group">
                     <label for="technologies">Technologies</label>
-                    <!--TODO zrobić fajnego multi selecta-->
-                    <input type="text"
-                           class="form-control"
-                           name="technologies"
-                           [(ngModel)]="model.technologies"
-                           #technologies="ngModel" />
+                    <select multiple *ngIf="techs" [(ngModel)]="model.technologies" name="technologies" class="form-control" #technologies="ngModel">
+                        <option *ngFor="let technology of techs"
+                                [value]="technology">
+                            {{ technology }}
+                        </option>
+                    </select>
                 </div>
 
                 <div class="form-group">

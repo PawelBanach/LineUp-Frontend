@@ -1,9 +1,9 @@
 export class Project {
-    id: number;
+    projectId: string;
     title: string;
     description: string;
-    github: string;
-    owner: number;
-    technologies: string;
+    versionControlUrl: string;
+    owner: string;
+    technologies: string[];
     status: string;
 }

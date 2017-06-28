@@ -10,23 +10,29 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var index_1 = require("../_services/index");
+var project_service_1 = require("../_services/project.service");
+var invitation_service_1 = require("../_services/invitation.service");
 var HomeComponent = (function () {
-    function HomeComponent(userService) {
-        this.userService = userService;
-        this.users = [];
+    function HomeComponent(projectService, invitationService) {
+        this.projectService = projectService;
+        this.invitationService = invitationService;
+        this.projectsOwner = [];
+        this.projectsOwnerHistory = [];
+        this.projectsParticipationHistory = [];
+        this.invitations = [];
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     }
     HomeComponent.prototype.ngOnInit = function () {
-        this.loadAllUsers();
+        this.loadProjectsOwner();
     };
-    HomeComponent.prototype.deleteUser = function (id) {
+    HomeComponent.prototype.loadProjectsOwner = function () {
         var _this = this;
-        this.userService.delete(id).subscribe(function () { _this.loadAllUsers(); });
-    };
-    HomeComponent.prototype.loadAllUsers = function () {
-        var _this = this;
-        this.userService.getAll().subscribe(function (users) { _this.users = users; });
+        this.projectService.getProjectsOwner().subscribe(function (projects) { _this.projectsOwner = projects; });
+        this.invitationService.getInvitations().subscribe(function (invitations) { _this.invitations = invitations; });
+        this.projectService.getHistory().subscribe(function (projects) {
+            _this.projectsOwnerHistory = projects.owned;
+            _this.projectsParticipationHistory = projects.participated;
+        });
     };
     return HomeComponent;
 }());
@@ -35,7 +41,7 @@ HomeComponent = __decorate([
         moduleId: module.id,
         templateUrl: 'home.component.html'
     }),
-    __metadata("design:paramtypes", [index_1.UserService])
+    __metadata("design:paramtypes", [project_service_1.ProjectService, invitation_service_1.InvitationService])
 ], HomeComponent);
 exports.HomeComponent = HomeComponent;
 //# sourceMappingURL=home.component.js.map

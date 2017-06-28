@@ -12,32 +12,33 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var user_1 = require("../_models/user");
 var ngx_bootstrap_1 = require("ngx-bootstrap");
+var project_service_1 = require("../_services/project.service");
+var alert_service_1 = require("../_services/alert.service");
 var ModalCollaboratorComponent = (function () {
-    function ModalCollaboratorComponent(cdr) {
+    function ModalCollaboratorComponent(cdr, projectService, alertService, elementRef) {
         this.cdr = cdr;
+        this.projectService = projectService;
+        this.alertService = alertService;
+        this.elementRef = elementRef;
+        this.errors = "";
     }
-    // constructor(private userService: UserService, private projectService: ProjectService,
-    //             private alertService: AlertService) { }
-    //
-    // ngOnInit() {
-    //     this.userService.getById(this.project.owner).subscribe(user => { this.owner = user });
-    //     this.projectService.getCollaborators(this.project.id).subscribe((users:User[]) => { this.collaborators = users });
-    // }
-    //
-    // public close() {
-    //     this.closeProject.emit();
-    // }
-    //
-    // public joinProject() {
-    //     this.projectService.joinProject(this.currentUser.id, this.project.id).subscribe(
-    //         data => {
-    //             this.alertService.success('Request for joining to project was sent!', true);
-    //         },
-    //         error => {
-    //             this.alertService.error('Server error, try again later!');
-    //         });
-    // }
-    //
+    ModalCollaboratorComponent.prototype.inviteToProject = function (collaborator) {
+        var _this = this;
+        debugger;
+        var projectId = this.el.nativeElement.value;
+        if (!projectId) {
+            this.errors = "Please, select project";
+        }
+        else {
+            this.projectService.inviteToProject(collaborator.userId, projectId).subscribe(function (data) {
+                _this.alertService.success('Invitation was sent!', true);
+            }, function (error) {
+                _this.alertService.error('Server error, try again later!');
+            });
+            this.collaboratorModal.hide();
+            this.errors = "";
+        }
+    };
     ModalCollaboratorComponent.prototype.showModal = function () {
         this.cdr.markForCheck();
         this.collaboratorModal.show();
@@ -46,12 +47,20 @@ var ModalCollaboratorComponent = (function () {
 }());
 __decorate([
     core_1.Input(),
+    __metadata("design:type", Array)
+], ModalCollaboratorComponent.prototype, "myProjects", void 0);
+__decorate([
+    core_1.Input(),
     __metadata("design:type", user_1.User)
 ], ModalCollaboratorComponent.prototype, "collaborator", void 0);
 __decorate([
     core_1.ViewChild('collaboratorModal'),
     __metadata("design:type", ngx_bootstrap_1.ModalDirective)
 ], ModalCollaboratorComponent.prototype, "collaboratorModal", void 0);
+__decorate([
+    core_1.ViewChild('project'),
+    __metadata("design:type", core_1.ElementRef)
+], ModalCollaboratorComponent.prototype, "el", void 0);
 ModalCollaboratorComponent = __decorate([
     core_1.Component({
         selector: 'modal-collaborator',
@@ -59,7 +68,8 @@ ModalCollaboratorComponent = __decorate([
         templateUrl: 'modal-collaborator.component.html',
         changeDetection: core_1.ChangeDetectionStrategy.OnPush,
     }),
-    __metadata("design:paramtypes", [core_1.ChangeDetectorRef])
+    __metadata("design:paramtypes", [core_1.ChangeDetectorRef, project_service_1.ProjectService,
+        alert_service_1.AlertService, core_1.ElementRef])
 ], ModalCollaboratorComponent);
 exports.ModalCollaboratorComponent = ModalCollaboratorComponent;
 //# sourceMappingURL=modal-collaborator.component.js.map
