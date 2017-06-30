@@ -19,21 +19,17 @@ var AuthenticationService = (function () {
         this.logged = new Subject_1.Subject();
     }
     AuthenticationService.prototype.login = function (email, password) {
-        //let response =  this.http.post('https://line-up-backend.herokuapp.com/users', user).map((response: Response) => response.json())
         var _this = this;
         return this.http.post('https://line-up-backend.herokuapp.com/users/auth', { email: email, password: password })
             .map(function (response) {
-            // login successful if there's a jwt token in the response
             var user = response.json();
             if (user && user.token) {
-                // store user details and jwt token in local storage to keep user logged in between page refreshes
                 _this.logged.next(true);
                 localStorage.setItem('currentUser', JSON.stringify(user));
             }
         });
     };
     AuthenticationService.prototype.logout = function () {
-        // remove user from local storage to log user out
         this.logged.next(false);
         localStorage.removeItem('currentUser');
     };

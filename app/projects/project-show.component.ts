@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
-import { Project } from "../_models/project";
-import { User } from "../_models/user";
-import { UserService } from "../_services/user.service";
-import { ProjectService } from "../_services/project.service";
-import { AlertService } from "../_services/alert.service";
-import { ModalCollaboratorComponent } from "../modals/modal-collaborator.component";
+import { Project } from '../_models/project';
+import { User } from '../_models/user';
+import { UserService } from '../_services/user.service';
+import { ProjectService } from '../_services/project.service';
+import { AlertService } from '../_services/alert.service';
+import { ModalCollaboratorComponent } from '../modals/modal-collaborator.component';
 
 @Component({
     selector: 'project-show',
@@ -20,7 +20,7 @@ export class ProjectShowComponent implements OnInit {
     @Input() currentUser: any;
     @Input() project: Project;
     @Output() closeProject: EventEmitter<any> = new EventEmitter();
-    @ViewChild(ModalCollaboratorComponent) private modal:ModalCollaboratorComponent;
+    @ViewChild(ModalCollaboratorComponent) private modal: ModalCollaboratorComponent;
 
     constructor(private userService: UserService, private projectService: ProjectService,
                 private alertService: AlertService) { }
@@ -50,7 +50,7 @@ export class ProjectShowComponent implements OnInit {
     }
 
     private loadCollaborators() {
-        this.projectService.getParticipants(this.project.projectId).subscribe((users:User[]) => {
+        this.projectService.getParticipants(this.project.projectId).subscribe((users: User[]) => {
             this.collaborators = users
         });
     }

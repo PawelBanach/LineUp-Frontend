@@ -1,30 +1,45 @@
-<h3>Collaborators</h3>
-<div style="margin-top: 40px;">
-    <div class="list-group">
-        <a (click)="showModal(collaborator)"
-           class="list-group-item list-group-item-action flex-column align-items-start"
-           *ngFor="let collaborator of collaborators"
-            style="height: 84px">
-            <div class="container" style="height: 100%;">
-                <div class="d-flex w-100 justify-content-between" style="height: 100%;">
-                    <div>
-                        <p class="mb-1" style="    font-size: 14px; font-weight: 200;">
-                            {{collaborator?.firstName}} {{collaborator?.lastName}}
-                        </p>
-                        <div class="badge badge-pill badge-success" style="margin-bottom: 10px;">{{collaborator.skills}}</div>
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header" data-background-color="blue">
+                        <h4 class="title">Collaborators</h4>
+                        <p class="category">Choose collaborator you wanna invite to you project</p>
                     </div>
-                    <div *ngIf="collaborator?.technologies">
-                        <a *ngFor="let tech of collaborator.technologies" style="margin-bottom: 10px;">
-                            <div class="badge badge-pill badge-success">{{tech}}</div>
-                        </a>
+                    <div class="card-content">
+                        <div style="margin-top: 40px;">
+                            <div class="list-group">
+                                <a (click)="showModal(collaborator)"
+                                   class="list-group-item list-group-item-action flex-column align-items-start"
+                                   *ngFor="let collaborator of collaborators"
+                                   style="height: 84px">
+                                    <div class="container" style="height: 100%;">
+                                        <div class="d-flex w-100 justify-content-between" style="height: 100%;">
+                                            <div>
+                                                <p class="mb-1" style="    font-size: 14px; font-weight: 200;">
+                                                    {{collaborator?.firstName}} {{collaborator?.lastName}}
+                                                </p>
+                                                <div class="badge badge-pill badge-success" style="margin-bottom: 10px;">{{collaborator.skills}}</div>
+                                            </div>
+                                            <div *ngIf="collaborator?.technologies">
+                                                <a *ngFor="let tech of collaborator.technologies" style="margin-bottom: 10px;">
+                                                    <div class="badge badge-pill badge-success">{{tech}}</div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </a>
+        </div>
     </div>
 </div>
 
 <modal-collaborator
-    [collaborator]="modalCollaborator"
-    [myProjects]="myProjects">
+        [collaborator]="modalCollaborator"
+        [myProjects]="myProjects">
 </modal-collaborator>

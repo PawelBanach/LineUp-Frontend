@@ -9,9 +9,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-/**
- * Created by Yoshimori on 03/06/2017.
- */
 var core_1 = require("@angular/core");
 var invitation_1 = require("../_models/invitation");
 var alert_service_1 = require("../_services/alert.service");
@@ -27,7 +24,6 @@ var InvitationComponent = (function () {
         this.collaborators = [];
     }
     InvitationComponent.prototype.ngOnInit = function () {
-        //load project
         this.loadProject();
     };
     InvitationComponent.prototype.loadProject = function () {
@@ -54,7 +50,6 @@ var InvitationComponent = (function () {
         var _this = this;
         this.invitationService.acceptRequest(this.invitation.joinId).subscribe(function (data) {
             _this.alertService.success('Request accepted!', true);
-            //    odświeżyć komponent
         }, function (error) {
             _this.alertService.error('Server error, try again later!');
         });
@@ -75,9 +70,9 @@ __decorate([
 ], InvitationComponent.prototype, "invitation", void 0);
 InvitationComponent = __decorate([
     core_1.Component({
-        selector: "invitation",
+        selector: 'invitation',
         moduleId: module.id,
-        templateUrl: "invitation.component.html",
+        templateUrl: 'invitation.component.html',
     }),
     __metadata("design:paramtypes", [project_service_1.ProjectService, alert_service_1.AlertService,
         invitation_service_1.InvitationService, user_service_1.UserService])

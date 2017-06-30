@@ -15,7 +15,6 @@ var appRoutes = [
     { path: 'projects', component: projects_index_component_1.ProjectsIndexComponent, canActivate: [index_2.AuthGuard] },
     { path: 'collaborators', component: collaborators_index_component_1.CollaboratorsIndexComponent, canActivate: [index_2.AuthGuard] },
     { path: 'settings', component: user_edit_component_1.UserEditComponent, canActivate: [index_2.AuthGuard] },
-    // otherwise redirect to home
     { path: '**', redirectTo: '' }
 ];
 exports.routing = router_1.RouterModule.forRoot(appRoutes);

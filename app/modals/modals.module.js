@@ -8,11 +8,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var modal_collaborator_component_1 = require("./modal-collaborator.component");
-// import { ProjectsIndexComponent } from "./projects-index.component";
-// import { ProjectService } from "../_services/project.service";
-// import { ProjectsNewComponent } from "./projects-new.component";
-// import { ProjectHeaderComponent } from "./project-header.component";
-// import { ProjectShowComponent } from "./project-show.component";
 var ModalsModule = (function () {
     function ModalsModule() {
     }
@@ -23,14 +18,9 @@ ModalsModule = __decorate([
         imports: [],
         declarations: [
             modal_collaborator_component_1.ModalCollaboratorComponent
-            // ProjectsIndexComponent,
-            // ProjectsNewComponent,
-            // ProjectHeaderComponent,
-            // ProjectShowComponent,
         ],
         exports: [
             modal_collaborator_component_1.ModalCollaboratorComponent
-            // ProjectsNewComponent, ProjectHeaderComponent, ProjectShowComponent
         ],
     })
 ], ModalsModule);

@@ -21,7 +21,6 @@ var home_component_1 = require("./home/home.component");
 var index_4 = require("./login/index");
 var projects_index_component_1 = require("./projects/projects-index.component");
 var project_service_1 = require("./_services/project.service");
-var lazy_component_1 = require("./lazy/lazy.component");
 var projects_new_component_1 = require("./projects/projects-new.component");
 var project_header_component_1 = require("./projects/project-header.component");
 var collaborators_index_component_1 = require("./collaborators/collaborators-index.component");
@@ -37,6 +36,8 @@ var register_component_1 = require("./register/register.component");
 var project_owner_history_component_1 = require("./projects/project-owner-history.component");
 var project_participation_history_component_1 = require("./projects/project-participation-history.component");
 var user_edit_component_1 = require("./users/user-edit.component");
+var sidebar_module_1 = require("./sidebar/sidebar.module");
+var navbar_module_1 = require("./navbar/navbar.module");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -50,12 +51,13 @@ AppModule = __decorate([
             http_1.HttpModule,
             ngx_bootstrap_1.ModalModule.forRoot(),
             ngx_bootstrap_1.TabsModule.forRoot(),
-            app_routing_1.routing
+            app_routing_1.routing,
+            sidebar_module_1.SidebarModule,
+            navbar_module_1.NavbarModule,
         ],
         declarations: [
             app_component_1.AppComponent,
             index_1.AlertComponent,
-            index_1.NavbarComponent,
             home_component_1.HomeComponent,
             projects_index_component_1.ProjectsIndexComponent,
             projects_new_component_1.ProjectsNewComponent,
@@ -70,7 +72,6 @@ AppModule = __decorate([
             project_request_component_1.ProjectRequestComponent,
             invitation_component_1.InvitationComponent,
             index_4.LoginComponent,
-            lazy_component_1.LazyComponent,
             user_edit_component_1.UserEditComponent,
             register_component_1.RegisterComponent
         ],
@@ -81,8 +82,6 @@ AppModule = __decorate([
             index_3.UserService,
             project_service_1.ProjectService,
             invitation_service_1.InvitationService,
-            // providers used to create fake backend
-            // fakeBackendProvider,
             testing_1.MockBackend,
             http_2.BaseRequestOptions
         ],

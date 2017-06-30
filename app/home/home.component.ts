@@ -1,11 +1,10 @@
 ﻿import { Component, OnInit } from '@angular/core';
 
 import { User } from '../_models/index';
-import { UserService } from '../_services/index';
-import { Project } from "../_models/project";
-import {ProjectService} from "../_services/project.service";
-import {Invitation} from "../_models/invitation";
-import {InvitationService} from "../_services/invitation.service";
+import { Project } from '../_models/project';
+import {ProjectService} from '../_services/project.service';
+import {Invitation} from '../_models/invitation';
+import {InvitationService} from '../_services/invitation.service';
 
 @Component({
     moduleId: module.id,
@@ -28,7 +27,7 @@ export class HomeComponent implements OnInit {
     }
 
     private loadProjectsOwner() {
-        this.projectService.getProjectsOwner().subscribe(projects => { this.projectsOwner = projects;});
+        this.projectService.getProjectsOwner().subscribe(projects => { this.projectsOwner = projects; });
         this.invitationService.getInvitations().subscribe(invitations => { this.invitations = invitations; });
         this.projectService.getHistory().subscribe(projects => {
             this.projectsOwnerHistory = projects.owned;

@@ -1,6 +1,6 @@
-import { NgModule } from "@angular/core";
-import {CollaboratorsIndexComponent} from "./collaborators-index.component";
-import {ModalCollaboratorComponent} from "../modals/modal-collaborator.component";
+import { NgModule } from '@angular/core';
+import { CollaboratorsIndexComponent } from './collaborators-index.component';
+import { ModalCollaboratorComponent } from '../modals/modal-collaborator.component';
 
 @NgModule({
     imports: [

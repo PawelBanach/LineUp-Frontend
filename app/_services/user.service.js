@@ -16,33 +16,38 @@ var UserService = (function () {
         this.http = http;
     }
     UserService.prototype.getAll = function () {
-        return this.http.get('https://line-up-backend.herokuapp.com/users', this.jwt()).map(function (response) { return response.json(); });
+        return this.http.get('https://line-up-backend.herokuapp.com/users', this.jwt())
+            .map(function (response) { return response.json(); });
     };
     UserService.prototype.getById = function (id) {
-        return this.http.get('https://line-up-backend.herokuapp.com/users/' + id, this.jwt()).map(function (response) { return response.json(); });
+        return this.http.get('https://line-up-backend.herokuapp.com/users/' + id, this.jwt())
+            .map(function (response) { return response.json(); });
     };
     UserService.prototype.create = function (user) {
         return this.http.post('https://line-up-backend.herokuapp.com/users', user)
             .map(function (response) { return response.json(); });
     };
     UserService.prototype.update = function (user) {
-        return this.http.put('https://line-up-backend.herokuapp.com/users/' + user.userId, user, this.jwt()).map(function (response) { return response.json(); });
+        return this.http.put('https://line-up-backend.herokuapp.com/users/' + user.userId, user, this.jwt())
+            .map(function (response) { return response.json(); });
     };
     UserService.prototype.delete = function (id) {
-        return this.http.delete('https://line-up-backend.herokuapp.com/users/' + id, this.jwt()).map(function (response) { return response.json(); });
+        return this.http.delete('https://line-up-backend.herokuapp.com/users/' + id, this.jwt())
+            .map(function (response) { return response.json(); });
     };
     UserService.prototype.loadDepartments = function () {
-        return this.http.get('https://line-up-backend.herokuapp.com/departments', this.jwt()).map(function (response) { return response.json(); });
+        return this.http.get('https://line-up-backend.herokuapp.com/departments', this.jwt())
+            .map(function (response) { return response.json(); });
     };
     UserService.prototype.loadFieldOfStudies = function () {
-        return this.http.get('https://line-up-backend.herokuapp.com/fieldofstudies', this.jwt()).map(function (response) { return response.json(); });
+        return this.http.get('https://line-up-backend.herokuapp.com/fieldofstudies', this.jwt())
+            .map(function (response) { return response.json(); });
     };
     UserService.prototype.loadTechnologies = function () {
-        return this.http.get('https://line-up-backend.herokuapp.com/technologies', this.jwt()).map(function (response) { return response.json(); });
+        return this.http.get('https://line-up-backend.herokuapp.com/technologies', this.jwt())
+            .map(function (response) { return response.json(); });
     };
-    // private helper methods
     UserService.prototype.jwt = function () {
-        // create authorization header with jwt token
         var currentUser = JSON.parse(localStorage.getItem('currentUser'));
         if (currentUser && currentUser.token) {
             var headers = new http_1.Headers({ 'Authorization': currentUser.token });

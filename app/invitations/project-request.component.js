@@ -21,7 +21,6 @@ var ProjectRequestComponent = (function () {
         this.invitationService = invitationService;
     }
     ProjectRequestComponent.prototype.ngOnInit = function () {
-        //load user
         this.loadUser();
     };
     ProjectRequestComponent.prototype.loadUser = function () {
@@ -32,7 +31,6 @@ var ProjectRequestComponent = (function () {
         var _this = this;
         this.invitationService.acceptRequest(this.invitation.joinId).subscribe(function (data) {
             _this.alertService.success('Request accepted!', true);
-            //    odświeżyć komponent
         }, function (error) {
             _this.alertService.error('Server error, try again later!');
         });
@@ -53,9 +51,9 @@ __decorate([
 ], ProjectRequestComponent.prototype, "invitation", void 0);
 ProjectRequestComponent = __decorate([
     core_1.Component({
-        selector: "project-request",
+        selector: 'project-request',
         moduleId: module.id,
-        templateUrl: "project-request.component.html",
+        templateUrl: 'project-request.component.html',
     }),
     __metadata("design:paramtypes", [user_service_1.UserService, alert_service_1.AlertService,
         invitation_service_1.InvitationService])

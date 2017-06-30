@@ -1,72 +1,110 @@
 ﻿<div>
+    <div class="main-content">
+        <div class="col-lg-12 col-md-12">
+            <div class="card card-nav-tabs" >
+                <div class="card-header" data-background-color="blue">
+                    <div class="nav-tabs-navigation">
+                        <div class="nav-tabs-wrapper">
+
+                            <ul class="nav nav-tabs" data-tabs="tabs">
+                                <li class="active">
+                                    <a href="#projects" data-toggle="tab">
+                                        <i class="fa fa-tasks"></i>
+                                        Your Projects
+                                        <div class="ripple-container"></div></a>
+                                </li>
+                                <li class="">
+                                    <a href="#new-project" data-toggle="tab">
+                                        <i class="fa fa-plus-square"></i>
+                                        New Project
+                                        <div class="ripple-container"></div></a>
+                                </li>
+                                <li class="">
+                                    <a href="#projects-history" data-toggle="tab">
+                                        <i class="fa fa-history"></i>
+                                        Projects History
+                                        <div class="ripple-container"></div></a>
+                                </li>
+                                <li class="">
+                                    <a href="#invitations" data-toggle="tab">
+                                        <i class="fa fa-envelope-square"></i>
+                                        Invitations  ({{invitations?.length}})
+                                        <div class="ripple-container"></div></a>
+                                </li>
+                            </ul>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-content">
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="projects">
+                            <div class="row" style="margin: 50px 0px;">
+
+                                <div *ngIf="!projectsOwner?.length" style="margin: 50px 0px;width: 100%;text-align: center;">
+                                    <h6>There is no your projects</h6>
+                                    <h5><i>Create one using <strong>New Project</strong> tab</i></h5>
+                                </div>
+
+                                <div class="list-group" style="width:100%;">
+                                    <a class="list-group-item list-group-item-action"  *ngFor="let project of projectsOwner"
+                                       style="background-color: #F5F5F5;border-bottom-width: thick;">
+                                        <project-owner [project]="project" style="width: 100%;">
+                                        </project-owner>
+                                    </a>
+                                </div>
+
+                                <project-participation style="width:100%;">
+                                </project-participation>
+
+                            </div>
+                        </div>
+
+                        <div class="tab-pane" id="new-project">
+                            <projects-new>
+                            </projects-new>
+                        </div>
+
+                        <div class="tab-pane" id="projects-history">
+                            <div *ngIf="!projectsOwnerHistory?.length && !projectsParticipationHistory?.length" style="margin: 50px 0px;width: 100%;text-align: center;">
+                                <h6>There is no closed projects</h6>
+                            </div>
+                            <div class="row" style="margin: 50px 0px;">
+                                <div *ngIf="projectsOwnerHistory" class="list-group" style="width:100%;">
+                                    <a class="list-group-item list-group-item-action"  *ngFor="let project of projectsOwnerHistory"
+                                       style="border-bottom-width: thick;">
+                                        <project-owner-history [project]="project" style="width: 100%;">
+                                        </project-owner-history>
+                                    </a>
+                                </div>
+                                <div *ngIf="projectsParticipationHistory" class="list-group" style="width:100%;">
+                                    <a class="list-group-item list-group-item-action"  *ngFor="let project of projectsParticipationHistory"
+                                       style="border-bottom-width: thick;">
+                                        <project-participation-history [project]="project" style="width: 100%;">
+                                        </project-participation-history>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane" id="invitations">
+                            <div class="row" style="margin: 50px 0px;">
+                                <div *ngIf="!invitations?.length" style="margin: 50px 0px;width: 100%;text-align: center;">
+                                    <h6>There is no invitations to projects</h6>
+                                </div>
+                                <div *ngIf="invitations" class="list-group" style="width:100%;">
+                                    <a class="list-group-item list-group-item-action"  *ngFor="let invitation of invitations">
+                                        <invitation [invitation]="invitation" style="width:100%;">
+                                        </invitation>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
     <hr/>
-    <tabset #staticTabs [justified]="true">
-        <tab>
-            <template tabHeading>
-                <i class="fa fa-tasks"></i>  Projects
-            </template>
-            <div class="row" style="margin: 50px 0px;">
-                <div *ngIf="!projectsOwner?.length" style="margin: 50px 0px;width: 100%;text-align: center;">
-                    <h6>There is no your projects</h6>
-                    <h5><i>Create one using <strong>New Project</strong> tab</i></h5>
-                </div>
-                <div class="list-group" style="width:100%;">
-                    <a class="list-group-item list-group-item-action"  *ngFor="let project of projectsOwner"
-                        style="background-color: #F5F5F5;border-bottom-width: thick;">
-                        <project-owner [project]="project" style="width: 100%;">
-                        </project-owner>
-                    </a>
-                </div>
-                <project-participation style="width:100%;">
-                </project-participation>
-            </div>
-        </tab>
-        <tab>
-            <template tabHeading>
-                <i class="fa fa-plus-square"></i>  New Project
-            </template>
-            <projects-new>
-            </projects-new>
-        </tab>
-        <tab>
-            <template tabHeading>
-            <i class="fa fa-history"></i>  Projects History
-            </template>
-            <div *ngIf="!projectsOwnerHistory?.length && !projectsParticipationHistory?.length" style="margin: 50px 0px;width: 100%;text-align: center;">
-                <h6>There is no closed projects</h6>
-            </div>
-            <div class="row" style="margin: 50px 0px;">
-                <div *ngIf="projectsOwnerHistory" class="list-group" style="width:100%;">
-                    <a class="list-group-item list-group-item-action"  *ngFor="let project of projectsOwnerHistory"
-                       style="border-bottom-width: thick;">
-                        <project-owner-history [project]="project" style="width: 100%;">
-                        </project-owner-history>
-                    </a>
-                </div>
-                <div *ngIf="projectsParticipationHistory" class="list-group" style="width:100%;">
-                    <a class="list-group-item list-group-item-action"  *ngFor="let project of projectsParticipationHistory"
-                       style="border-bottom-width: thick;">
-                        <project-participation-history [project]="project" style="width: 100%;">
-                        </project-participation-history>
-                    </a>
-                </div>
-            </div>
-        </tab>
-        <tab>
-            <template tabHeading>
-                <i class="fa fa-envelope-square"></i>  Invitations  ({{invitations?.length}})
-            </template>
-            <div class="row" style="margin: 50px 0px;">
-                <div *ngIf="!invitations?.length" style="margin: 50px 0px;width: 100%;text-align: center;">
-                    <h6>There is no invitations to projects</h6>
-                </div>
-                <div *ngIf="invitations" class="list-group" style="width:100%;">
-                    <a class="list-group-item list-group-item-action"  *ngFor="let invitation of invitations">
-                        <invitation [invitation]="invitation" style="width:100%;">
-                        </invitation>
-                    </a>
-                </div>
-            </div>
-        </tab>
-    </tabset>
 </div>

@@ -1,8 +1,8 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit } from '@angular/core';
 import { ProjectService } from '../_services/project.service';
-import { Router } from "@angular/router";
-import { AlertService } from "../_services/alert.service";
-import { UserService } from "../_services/user.service";
+import { Router } from '@angular/router';
+import { AlertService } from '../_services/alert.service';
+import { UserService } from '../_services/user.service';
 
 @Component({
     selector: 'projects-new',
@@ -10,7 +10,7 @@ import { UserService } from "../_services/user.service";
     templateUrl: 'projects-new.component.html'
 })
 
-export class ProjectsNewComponent implements OnInit{
+export class ProjectsNewComponent implements OnInit {
     public techs: any;
     currentUser: any;
     model: any = {};

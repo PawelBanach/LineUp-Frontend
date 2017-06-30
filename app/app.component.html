@@ -1,10 +1,16 @@
 ﻿<!-- main app container -->
 <div>
-    <div class="container">
-        <navbar></navbar>
-        <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
+    <div class="wrapper">
+
+        <div class="sidebar" data-color='red' data-image="">
+            <sidebar-cmp></sidebar-cmp>
+            <div class="sidebar-background" style="background-image: url(app/assets/img/sidebar-3.jpg)"></div>
+        </div>
+        <div class="main-panel">
+            <navbar-cmp></navbar-cmp>
             <alert></alert>
             <router-outlet></router-outlet>
-        </main>
+        </div>
+
     </div>
 </div>

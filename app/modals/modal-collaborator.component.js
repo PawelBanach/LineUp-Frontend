@@ -20,14 +20,13 @@ var ModalCollaboratorComponent = (function () {
         this.projectService = projectService;
         this.alertService = alertService;
         this.elementRef = elementRef;
-        this.errors = "";
+        this.errors = '';
     }
     ModalCollaboratorComponent.prototype.inviteToProject = function (collaborator) {
         var _this = this;
-        debugger;
         var projectId = this.el.nativeElement.value;
         if (!projectId) {
-            this.errors = "Please, select project";
+            this.errors = 'Please, select project';
         }
         else {
             this.projectService.inviteToProject(collaborator.userId, projectId).subscribe(function (data) {
@@ -36,7 +35,7 @@ var ModalCollaboratorComponent = (function () {
                 _this.alertService.error('Server error, try again later!');
             });
             this.collaboratorModal.hide();
-            this.errors = "";
+            this.errors = '';
         }
     };
     ModalCollaboratorComponent.prototype.showModal = function () {

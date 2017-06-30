@@ -31,9 +31,7 @@ var InvitationService = (function () {
         return this.http.get('https://line-up-backend.herokuapp.com/joins', this.jwt())
             .map(function (response) { return response.json(); });
     };
-    // private helper methods
     InvitationService.prototype.jwt = function () {
-        // create authorization header with jwt token
         var currentUser = JSON.parse(localStorage.getItem('currentUser'));
         if (currentUser && currentUser.token) {
             var headers = new http_1.Headers({ 'Authorization': currentUser.token });

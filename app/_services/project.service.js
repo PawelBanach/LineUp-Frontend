@@ -32,11 +32,10 @@ var ProjectService = (function () {
             .map(function (response) { return response.json(); });
     };
     ProjectService.prototype.addParticipantToProject = function (project_id, participant_id) {
-        return this.http.post('https://line-up-backend.herokuapp.com/projects/' + project_id + '/participants', { "userId": participant_id }, this.jwt())
+        return this.http.post('https://line-up-backend.herokuapp.com/projects/' + project_id + '/participants', { 'userId': participant_id }, this.jwt())
             .map(function (response) { return response.json(); });
     };
     ProjectService.prototype.removeParticipantFromProject = function (project_id, participant_id) {
-        // TODO powiedzieć Michałowi że DELETE nie ma body
         return this.http.delete('https://line-up-backend.herokuapp.com/projects/' + project_id + '/participants/' + participant_id, this.jwt())
             .map(function (response) { return response.json(); });
     };
@@ -45,11 +44,11 @@ var ProjectService = (function () {
             .map(function (response) { return response.json(); });
     };
     ProjectService.prototype.joinProject = function (user_id, project_id) {
-        return this.http.post('https://line-up-backend.herokuapp.com/projects/' + project_id + '/join', { "who": user_id }, this.jwt())
+        return this.http.post('https://line-up-backend.herokuapp.com/projects/' + project_id + '/join', { 'who': user_id }, this.jwt())
             .map(function (response) { return response.json(); });
     };
     ProjectService.prototype.inviteToProject = function (user_id, project_id) {
-        return this.http.post('https://line-up-backend.herokuapp.com/projects/' + project_id + '/invite', { "who": user_id }, this.jwt())
+        return this.http.post('https://line-up-backend.herokuapp.com/projects/' + project_id + '/invite', { 'who': user_id }, this.jwt())
             .map(function (response) { return response.json(); });
     };
     ProjectService.prototype.create = function (project) {
@@ -76,9 +75,7 @@ var ProjectService = (function () {
         return this.http.get('https://line-up-backend.herokuapp.com/projects/history', this.jwt())
             .map(function (response) { return response.json(); });
     };
-    // private helper methods
     ProjectService.prototype.jwt = function () {
-        // create authorization header with jwt token
         var currentUser = JSON.parse(localStorage.getItem('currentUser'));
         if (currentUser && currentUser.token) {
             var headers = new http_1.Headers({ 'Authorization': currentUser.token });

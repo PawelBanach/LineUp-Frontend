@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
-
-import { User, Project } from '../_models/index';
+import { Project } from '../_models/index';
 
 @Injectable()
 export class ProjectService {
@@ -28,12 +27,13 @@ export class ProjectService {
     }
 
     addParticipantToProject(project_id: string, participant_id: string) {
-        return this.http.post('https://line-up-backend.herokuapp.com/projects/' + project_id + '/participants', { "userId": participant_id}, this.jwt())
+        return this.http.post(
+            'https://line-up-backend.herokuapp.com/projects/' + project_id + '/participants', { 'userId': participant_id}, this.jwt())
             .map((response: Response) => response.json());
     }
     removeParticipantFromProject(project_id: string, participant_id: string) {
-        // TODO powiedzieć Michałowi że DELETE nie ma body
-        return this.http.delete('https://line-up-backend.herokuapp.com/projects/' + project_id + '/participants/' + participant_id, this.jwt())
+        return this.http.delete(
+            'https://line-up-backend.herokuapp.com/projects/' + project_id + '/participants/' + participant_id, this.jwt())
             .map((response: Response) => response.json());
     }
 
@@ -43,12 +43,12 @@ export class ProjectService {
     }
 
     joinProject(user_id: string, project_id: string) {
-        return this.http.post('https://line-up-backend.herokuapp.com/projects/' + project_id + '/join', { "who": user_id }, this.jwt())
+        return this.http.post('https://line-up-backend.herokuapp.com/projects/' + project_id + '/join', { 'who': user_id }, this.jwt())
             .map((response: Response) => response.json());
     }
 
     inviteToProject(user_id: string, project_id: string) {
-        return this.http.post('https://line-up-backend.herokuapp.com/projects/' + project_id + '/invite', { "who": user_id }, this.jwt())
+        return this.http.post('https://line-up-backend.herokuapp.com/projects/' + project_id + '/invite', { 'who': user_id }, this.jwt())
             .map((response: Response) => response.json());
     }
 
@@ -82,10 +82,7 @@ export class ProjectService {
             .map((response: Response) => response.json())
     }
 
-    // private helper methods
-
     private jwt() {
-        // create authorization header with jwt token
         let currentUser = JSON.parse(localStorage.getItem('currentUser'));
         if (currentUser && currentUser.token) {
             let headers = new Headers({ 'Authorization': currentUser.token });

@@ -1,8 +1,8 @@
-import { Component, OnInit } from "@angular/core";
-import { User } from "../_models/user";
-import { UserService } from "../_services/user.service";
-import {Router} from "@angular/router";
-import {AlertService} from "../_services/alert.service";
+import { Component, OnInit } from '@angular/core';
+import { User } from '../_models/user';
+import { UserService } from '../_services/user.service';
+import { Router } from '@angular/router';
+import { AlertService } from '../_services/alert.service';
 
 @Component({
     moduleId: module.id,
@@ -22,18 +22,16 @@ export class UserEditComponent implements OnInit {
         this.loadFieldOfStudies();
         this.loadTechnologies();
         let currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        this.userService.getById(currentUser.id).subscribe(user => {this.model = user; debugger;});
+        this.userService.getById(currentUser.id).subscribe(user => {this.model = user; });
     }
 
     update() {
         this.userService.update(this.model).subscribe(
             data => {
-                debugger
                 this.router.navigate(['/']);
                 this.alertService.success('User updated successfully', true);
             },
             error => {
-                debugger
                 this.alertService.error(error);
             });
     }

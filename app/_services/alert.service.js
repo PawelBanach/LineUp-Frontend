@@ -18,15 +18,12 @@ var AlertService = (function () {
         this.router = router;
         this.subject = new Subject_1.Subject();
         this.keepAfterNavigationChange = false;
-        // clear alert message on route change
         router.events.subscribe(function (event) {
             if (event instanceof router_1.NavigationStart) {
                 if (_this.keepAfterNavigationChange) {
-                    // only keep for a single location change
                     _this.keepAfterNavigationChange = false;
                 }
                 else {
-                    // clear alert
                     _this.subject.next();
                 }
             }

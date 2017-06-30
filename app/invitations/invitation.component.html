@@ -5,15 +5,17 @@
                 <h4>{{project.title}}</h4>
                 <div style="font-style: italic; padding-bottom: 10px; font-size: 14px;">{{project.description}}</div>
             </div>
-            <div class="col-4">
+            <div class="col-3">
                 <div *ngIf="owner" style="font-size: 14px;">
                     <i class="fa fa-suitcase"></i>  Owner: <strong>{{owner.firstName}} {{owner.lastName}}</strong>
                 </div>
+                <p *ngIf="project.gitHubCollaborators && project.gitHubCollaborators != '-1'"
+                ><i class="fa fa-group"></i>  Collaborators on GitHub: <strong>{{project.gitHubCollaborators}}</strong></p>
                 <a class="btn btn-outline-info btn-sm" target="_blank" href="https://{{project.versionControlUrl}}" style="margin-top: 10px;">
                     <i class="fa fa-archive"></i>   Repository
                 </a>
             </div>
-            <div *ngIf="collaborators" class="col-3">
+            <div *ngIf="collaborators" class="col-2">
                 <div><i class="fa fa-users"></i><strong>  Collaborators:</strong></div>
                 <a *ngFor="let collaborator of collaborators">
                     <div style="padding-bottom: 5px; font-size: 13px;">
@@ -21,12 +23,14 @@
                     </div>
                 </a>
             </div>
-            <div class="col-2">
+            <div class="col-1">
                 <div *ngIf="project.technologies.length !== 0" style="float: right; margin:3px;">
                     <a *ngFor="let tech of project.technologies" style="margin-bottom: 10px;">
-                        <div class="badge badge-pill badge-success pull-right">{{tech}}</div>
+                        <div class="badge badge-pill badge-success pull-left">{{tech}}</div>
                     </a>
                 </div>
+            </div>
+            <div class="col-3">
                 <div style="display: inline" style="float: right;margin:3px;">
                     <button class="btn btn-success pull-right btn-sm" style="margin-left: 5px;" (click)="acceptInvitation()">
                         <i class="fa fa-check"></i>

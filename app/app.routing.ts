@@ -1,12 +1,11 @@
 ﻿import { Routes, RouterModule } from '@angular/router';
-
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/index';
 import { AuthGuard } from './_guards/index';
-import { ProjectsIndexComponent } from "./projects/projects-index.component";
-import { CollaboratorsIndexComponent} from "./collaborators/collaborators-index.component";
-import { RegisterComponent } from "./register/register.component";
-import { UserEditComponent } from "./users/user-edit.component";
+import { ProjectsIndexComponent } from './projects/projects-index.component';
+import { CollaboratorsIndexComponent} from './collaborators/collaborators-index.component';
+import { RegisterComponent } from './register/register.component';
+import { UserEditComponent } from './users/user-edit.component';
 
 const appRoutes: Routes = [
     { path: '', component: HomeComponent, canActivate: [AuthGuard] },
@@ -16,8 +15,6 @@ const appRoutes: Routes = [
     { path: 'collaborators', component: CollaboratorsIndexComponent, canActivate: [AuthGuard] },
     { path: 'settings', component: UserEditComponent, canActivate: [AuthGuard]},
 
-
-    // otherwise redirect to home
     { path: '**', redirectTo: '' }
 ];
 

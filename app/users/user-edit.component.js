@@ -25,16 +25,14 @@ var UserEditComponent = (function () {
         this.loadFieldOfStudies();
         this.loadTechnologies();
         var currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        this.userService.getById(currentUser.id).subscribe(function (user) { _this.model = user; debugger; });
+        this.userService.getById(currentUser.id).subscribe(function (user) { _this.model = user; });
     };
     UserEditComponent.prototype.update = function () {
         var _this = this;
         this.userService.update(this.model).subscribe(function (data) {
-            debugger;
             _this.router.navigate(['/']);
             _this.alertService.success('User updated successfully', true);
         }, function (error) {
-            debugger;
             _this.alertService.error(error);
         });
     };

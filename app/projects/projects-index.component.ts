@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import { User, Project } from '../_models/index';
+import { Component, OnInit } from '@angular/core';
+import { Project } from '../_models/index';
 import { ProjectService } from '../_services/project.service';
 
 @Component({

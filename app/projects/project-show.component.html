@@ -1,4 +1,4 @@
-<div *ngIf="project" class="container" style="border-bottom: darkgreen 2px solid;border-top: darkgreen 2px solid;">
+<div *ngIf="project" class="container">
     <div style="padding: 12px 20px">
         <div class="row" style="margin: 10px 0px;">
             <div class="col">
@@ -10,6 +10,9 @@
             <div class="col">
                 <div *ngIf="owner" style="padding-bottom: 10px; font-size: 14px;">
                     <i class="fa fa-suitcase"></i>  Owner: <strong>{{owner.firstName}} {{owner.lastName}}</strong>
+                </div>
+                <div *ngIf="project.gitHubCollaborators && project.gitHubCollaborators != '-1'">
+                    <i class="fa fa-group"></i>  Collaborators on GitHub: <strong>{{project.gitHubCollaborators}}</strong>
                 </div>
                 <a class="btn btn-outline-info btn-sm" target="_blank" href="https://{{project.versionControlUrl}}" style="margin-top: 10px;">
                     <i class="fa fa-archive"></i>   Repository

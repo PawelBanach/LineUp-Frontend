@@ -1,5 +1,5 @@
-import { NgModule } from "@angular/core";
-import { UserEditComponent } from "./user-edit.component";
+import { NgModule } from '@angular/core';
+import { UserEditComponent } from './user-edit.component';
 
 @NgModule({
     imports: [

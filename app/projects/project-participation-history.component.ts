@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from "@angular/core";
-import { Project } from "../_models/project";
+import { Component, Input } from '@angular/core';
+import { Project } from '../_models/project';
 
 @Component({
     selector: 'project-participation-history',

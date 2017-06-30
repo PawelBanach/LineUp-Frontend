@@ -3,6 +3,7 @@ export class Project {
     title: string;
     description: string;
     versionControlUrl: string;
+    gitHubCollaborators: string;
     owner: string;
     technologies: string[];
     status: string;

@@ -1,22 +1,20 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-
 import { User, Project } from '../_models/index';
 import { UserService } from '../_services/user.service';
-import { ModalCollaboratorComponent } from "../modals/modal-collaborator.component";
-import { ProjectService } from "../_services/project.service";
-import {AlertService} from "../_services/alert.service";
+import { ModalCollaboratorComponent } from '../modals/modal-collaborator.component';
+import { ProjectService } from '../_services/project.service';
 
 @Component({
     moduleId: module.id,
     templateUrl: 'collaborators-index.component.html'
 })
 
-export class CollaboratorsIndexComponent implements OnInit{
+export class CollaboratorsIndexComponent implements OnInit {
     currentUser: User;
     collaborators: User[] = [];
     modalCollaborator: User = null;
     myProjects: Project[] = [];
-    @ViewChild(ModalCollaboratorComponent) private modal:ModalCollaboratorComponent;
+    @ViewChild(ModalCollaboratorComponent) private modal: ModalCollaboratorComponent;
     ngOnInit() {
         this.loadAllCollaborators();
         this.loadMyProjects();
@@ -33,7 +31,7 @@ export class CollaboratorsIndexComponent implements OnInit{
 
     private loadAllCollaborators() {
         this.userService.getAll().subscribe(users => {
-            this.collaborators = users.filter((user:User) => user.userId !== this.currentUser.userId);});
+            this.collaborators = users.filter((user: User) => user.userId !== this.currentUser.userId); });
     }
 
     private loadMyProjects() {

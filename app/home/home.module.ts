@@ -1,8 +1,8 @@
-import { NgModule } from "@angular/core";
-import { HomeComponent } from "./home.component";
-import { ModalCollaboratorComponent } from "../modals/modal-collaborator.component";
-import { ProjectOwnerComponent } from "../projects/project-owner.component";
-import { ProjectsNewComponent } from "../projects/projects-new.component";
+import { NgModule } from '@angular/core';
+import { HomeComponent } from './home.component';
+import { ModalCollaboratorComponent } from '../modals/modal-collaborator.component';
+import { ProjectOwnerComponent } from '../projects/project-owner.component';
+import { ProjectsNewComponent } from '../projects/projects-new.component';
 
 @NgModule({
     imports: [
@@ -12,13 +12,7 @@ import { ProjectsNewComponent } from "../projects/projects-new.component";
     ],
     declarations: [
         HomeComponent
-        // ProjectsIndexComponent,
-        // ProjectsNewComponent,
-        // ProjectHeaderComponent,
-        // ProjectShowComponent,
-
     ],
-    // exports: [ProjectsNewComponent, ProjectHeaderComponent, ProjectShowComponent],
 })
 
 export class HomeModule {}

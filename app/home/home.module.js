@@ -25,10 +25,6 @@ HomeModule = __decorate([
         ],
         declarations: [
             home_component_1.HomeComponent
-            // ProjectsIndexComponent,
-            // ProjectsNewComponent,
-            // ProjectHeaderComponent,
-            // ProjectShowComponent,
         ],
     })
 ], HomeModule);

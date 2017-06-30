@@ -1,11 +1,9 @@
-import { NgModule } from "@angular/core";
-import { ProjectRequestComponent } from "./project-request.component";
-import {InvitationComponent} from "./invitation.component";
+import { NgModule } from '@angular/core';
+import { ProjectRequestComponent } from './project-request.component';
+import {InvitationComponent} from './invitation.component';
 
 @NgModule({
-    imports: [
-        // ProjectService
-    ],
+    imports: [],
     declarations: [
         ProjectRequestComponent,
         InvitationComponent

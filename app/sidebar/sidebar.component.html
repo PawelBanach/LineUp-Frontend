@@ -1,0 +1,19 @@
+<div [hidden]="!isCustomerLogged" class="logo" style="height: 80px">
+    <a href="#" class="simple-text">
+        <div class="logo-img" style="text-align: center;">
+            <img src="app/assets/img/logo/Logomakr_98hQg4.png" style="height: 56px; width: 185px; padding: 10px; text-align: center;"/>
+        </div>
+    </a>
+</div>
+<div [hidden]="!isCustomerLogged" class="sidebar-wrapper">
+    <div class="nav-container">
+        <ul class="nav" style="display: block;">
+            <li *ngFor="let menuItem of menuItems" routerLinkActive="active" class="{{menuItem.class}}">
+                <a  [routerLink]="[menuItem.path]">
+                    <i class="material-icons">{{menuItem.icon}}</i>
+                    <p>{{menuItem.title}}</p>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>

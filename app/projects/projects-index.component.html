@@ -1,26 +1,32 @@
-<div class="container">
-    <div class="page-header">
-        <h3>Projects</h3>
-    </div>
-    <div class="row" style="margin: 10px 0px;">
-        <div *ngIf="!activeProject" style="margin: 50px 0px;width: 100%;text-align: center;">
-            <h6>Select project to see preview</h6>
-        </div>
-        <project-show *ngIf="activeProject"
-                      [project]="activeProject"
-                      [currentUser]="currentUser"
-                      (closeProject)="closeProject($event)"
-                      style="width:100%;">
-        </project-show>
-    </div>
-    <div class="row" style="margin: 10px 0px;">
-        <div class="list-group" style="width:100%;">
-            <a class="list-group-item list-group-item-action" (click)="showProject(project)" *ngFor="let project of projects">
-                <project-header [project]="project" style="width:100%;">
-                </project-header>
-            </a>
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header" data-background-color="blue">
+                        <h4 class="title">Projects</h4>
+                        <p class="category">Choose project you wanna participate</p>
+                    </div>
+                    <div class="card-content">
+                        <div class="row" style="margin: 10px 0px;">
+                            <project-show *ngIf="activeProject"
+                                          [project]="activeProject"
+                                          [currentUser]="currentUser"
+                                          (closeProject)="closeProject($event)"
+                                          style="width:100%;">
+                            </project-show>
+                        </div>
+                        <div class="row" style="margin: 10px 0px;">
+                            <div class="list-group" style="width:100%;">
+                                <a class="list-group-item list-group-item-action" (click)="showProject(project)" *ngFor="let project of projects">
+                                    <project-header [project]="project" style="width:100%;">
+                                    </project-header>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-
-

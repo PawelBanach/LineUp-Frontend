@@ -51,7 +51,7 @@ var ProjectOwnerComponent = (function () {
     };
     ProjectOwnerComponent.prototype.editProject = function () {
         // TODO
-        console.log("Will edit project");
+        console.log('Will edit project');
     };
     return ProjectOwnerComponent;
 }());

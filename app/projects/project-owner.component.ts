@@ -1,9 +1,9 @@
-import { Component, Input, OnInit } from "@angular/core";
-import { ProjectService } from "../_services/project.service";
-import { Project } from "../_models/project";
-import { Invitation } from "../_models/invitation";
-import { AlertService } from "../_services/alert.service";
-import { InvitationService } from "../_services/invitation.service";
+import { Component, Input, OnInit } from '@angular/core';
+import { ProjectService } from '../_services/project.service';
+import { Project } from '../_models/project';
+import { Invitation } from '../_models/invitation';
+import { AlertService } from '../_services/alert.service';
+import { InvitationService } from '../_services/invitation.service';
 
 @Component({
     selector: 'project-owner',
@@ -22,7 +22,7 @@ export class ProjectOwnerComponent implements OnInit {
         this.invitationService.getJoiningRequest(this.project.projectId).subscribe((invitations) => this.joiningRequests = invitations);
     }
 
-    endProject(){
+    endProject() {
         this.projectService.endProject(this.project.projectId).subscribe(
             data => {
                 this.alertService.success('Project finnish!', true);
@@ -57,6 +57,6 @@ export class ProjectOwnerComponent implements OnInit {
 
     editProject() {
         // TODO
-        console.log("Will edit project");
+        console.log('Will edit project');
     }
 }

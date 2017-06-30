@@ -1,15 +1,14 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, ViewChild} from "@angular/core";
-import { User } from "../_models/user";
-import { ModalDirective } from "ngx-bootstrap";
-import {Invitation} from "../_models/invitation";
-import {UserService} from "../_services/user.service";
-import {AlertService} from "../_services/alert.service";
-import {InvitationService} from "../_services/invitation.service";
+import { Component, Input, OnInit } from '@angular/core';
+import { User } from '../_models/user';
+import { Invitation } from '../_models/invitation';
+import { UserService } from '../_services/user.service';
+import { AlertService } from '../_services/alert.service';
+import { InvitationService } from '../_services/invitation.service';
 
 @Component({
-    selector: "project-request",
+    selector: 'project-request',
     moduleId: module.id,
-    templateUrl: "project-request.component.html",
+    templateUrl: 'project-request.component.html',
 })
 
 export class ProjectRequestComponent implements OnInit {
@@ -18,8 +17,7 @@ export class ProjectRequestComponent implements OnInit {
     constructor(private userService: UserService, private alertService: AlertService,
                 private invitationService: InvitationService) {}
 
-    ngOnInit(){
-        //load user
+    ngOnInit() {
         this.loadUser();
     }
 
@@ -31,7 +29,6 @@ export class ProjectRequestComponent implements OnInit {
         this.invitationService.acceptRequest(this.invitation.joinId).subscribe(
             data => {
                 this.alertService.success('Request accepted!', true);
-                //    odświeżyć komponent
             },
             error => {
                 this.alertService.error('Server error, try again later!');

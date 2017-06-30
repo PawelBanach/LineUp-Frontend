@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import {Project} from "../_models/project";
-import {ProjectService} from "../_services/project.service";
+import {Project} from '../_models/project';
+import {ProjectService} from '../_services/project.service';
 
 @Component({
     selector: 'project-participation',
